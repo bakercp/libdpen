@@ -11,6 +11,23 @@ FILE HEADER
 
 The standard header length is 2059 bytes.  There are some variations between headers, but no examples have exceeded 2059 bytes.  The contents are still a work in progress.
 
+
+Byte Pos 270 - 273  differ across devices (Serial Number?)
+Byte Pos 322 - 325  differ across devices
+Byte Pos 334 - 337  differ across devices
+Byte Pos 434 - 436  differ across devices
+Byte Pos 446 - 1136 differ across devices
+Byte Pos 1146 - 1837 differ across devices
+Byte Pos 1858 - 1860 differ across devices
+1870-1871
+1882-1885
+1894-1897
+
+
+Byte Pos 2043, 2044 differ?
+
+Byte Pos 2045 - 2059 Are again the same.
+
 NEW LAYER
 ---------
 
