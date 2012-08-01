@@ -14,21 +14,21 @@ The Wacom Inkling's official specifications can be found [here](http://www.wacom
 #Header
 The standard header length is **2059** bytes.  There are some variations between headers, but no examples have exceeded **2059** bytes.  The contents are still a work in progress.
 
-Byte Range|Function|_Notes_
--:|:-|:-
-0-269|…|…
-270-273|…|differ across devices ?
-270-273|…|differ across devices ?
-334-337|…|differ across devices ?
-434-436|…|differ across devices ?
-446-1136|…|differ across devices ?
-1146-1837|…|differ across devices ?
-1858-1860|…|differ across devices ?
-1870-1871|…|differ across devices ?
-1882-1885|…|differ across devices ?
-1894-1897|…|differ across devices ?
-2043-2044|…|differ across devices ?
-2045-2059|…|Are again the same.
+|Byte Range|Function|_Notes_
+|-:|:-|:-
+|0-269|…|…
+|270-273|…|differ across devices ?
+|270-273|…|differ across devices ?
+|334-337|…|differ across devices ?
+|434-436|…|differ across devices ?
+|446-1136|…|differ across devices ?
+|1146-1837|…|differ across devices ?
+|1858-1860|…|differ across devices ?
+|1870-1871|…|differ across devices ?
+|1882-1885|…|differ across devices ?
+|1894-1897|…|differ across devices ?
+|2043-2044|…|differ across devices ?
+|2045-2059|…|Are again the same.
 
 #Layers
 ##Layer Start
