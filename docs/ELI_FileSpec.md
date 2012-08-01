@@ -4,73 +4,140 @@ This specification is unofficial, incomplete, in progress and the result of tria
 
 Christopher Baker <http://christopherbaker.net>
 
---------------------------------------------------------------------------------
+#Equipment
 
-FILE HEADER
------------
+###Wacom Inkling
+The Wacom Inkling's official specifications can be found [here](http://www.wacom.com/en/Products/Inkling/Inkling-Technical-Specifics.aspx).  It appears that the sampling rate for the Inkling is 200 samples / second.  It provides 1024 levels of pressure.
+###Others
+…
 
-The standard header length is 2059 bytes.  There are some variations between headers, but no examples have exceeded 2059 bytes.  The contents are still a work in progress.
+#Header
+The standard header length is **2059** bytes.  There are some variations between headers, but no examples have exceeded **2059** bytes.  The contents are still a work in progress.
 
+Byte Range|Function|_Notes_
+-:|:-|:-
+0-269|…|…
+270-273|…|differ across devices ?
+270-273|…|differ across devices ?
+334-337|…|differ across devices ?
+434-436|…|differ across devices ?
+446-1136|…|differ across devices ?
+1146-1837|…|differ across devices ?
+1858-1860|…|differ across devices ?
+1870-1871|…|differ across devices ?
+1882-1885|…|differ across devices ?
+1894-1897|…|differ across devices ?
+2043-2044|…|differ across devices ?
+2045-2059|…|Are again the same.
 
-Byte Pos 270 - 273  differ across devices (Serial Number?)
-Byte Pos 322 - 325  differ across devices
-Byte Pos 334 - 337  differ across devices
-Byte Pos 434 - 436  differ across devices
-Byte Pos 446 - 1136 differ across devices
-Byte Pos 1146 - 1837 differ across devices
-Byte Pos 1858 - 1860 differ across devices
-1870-1871
-1882-1885
-1894-1897
-
-
-Byte Pos 2043, 2044 differ?
-
-Byte Pos 2045 - 2059 Are again the same.
-
-NEW LAYER
----------
+#Layers
+##Layer Start
 
 A new layer is indicated by the byte sequence:
 
-0xF1 0x03 0x80
+
+BYTE_0|BYTE_1|BYTE_2
+:-:|:-:|:-:
+*Marker*|*Length*|*ID*
+`0xF1`|`0x03`|`0x80`
+
 
 The new layer marker will be present even when there is stroke data on the layer.  In the case of the Wacom Inkling, this can happen if one presses the new layer button multiple times without putting pen to paper.  Wacom's Sketch Manager software skips such "empty" layers during display and export.
 
-STROKE START
-------------
+#Strokes
+##Stroke Start
 
 The beginning of a stroke (a pen down) is indicated by the 3 byte sequence:
 
-0xF1 0x03 0x01
+BYTE_0|BYTE_1|BYTE_2
+:-:|:-:|:-:
+*Marker*|*Length*|*ID*
+`0xF1`|`0x03`|`0x01`
 
-STROKE END
-----------
+##Stroke End
 
-The end of the stroke (a pen lift) is by the 3 byte sequence:
+The end of the stroke (a pen lift) is indicated by the 3 byte sequence:
 
-0xF1 0x03 0x00
+BYTE_0|BYTE_1|BYTE_2
+:-:|:-:|:-:
+*Marker*|*Length*|*ID*
+`0xF1`|`0x03`|`0x00`
 
-PEN DATA
+Pen Data
 --------
 
-POSITION (0x61 0x06)
---------
+###X/Y POSITION
 
-e.g.
-0x61 0x06 0x03 0x4F 0x13 0x61
+X and Y values are encoded as a two byte `short` values.
 
-TILT (0x64 0x06)
+BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5
+:-:|:-:|:-:|:-:|:-:|:-:|:-:
+*Marker*|*Length*|*X HIGH*|*X LOW*|*Y HIGH*|*Y LOW*
+`0xF1`|`0x06`|`VARIES`|`VARIES`|`VARIES`|`VARIES`|
+
+####Example
+
+```
+unsigned char  buffer[] = { 0x61, 0x06, 0x03, 0x4F, 0x13, 0x61 };
+unsigned int   i = 0;
+unsigned short xPos = (buffer[i+2] << 8) | (buffer[i+3]); // get x value
+unsigned short yPos = (buffer[i+4] << 8) | (buffer[i+5]); // get y value
+
+```
+
+####Notes
+The Inkling Sketch Manager software scales the resulting raw `x` and `y` values by `x / 10.0f` and `y / 5.0f` when creating the `.WAC` InkML output files. e.g.
+
+```
+float x = xPos / 10.0f; // Scale like Inkling Sketch Manager
+float y = xPos /  5.0f; // Scale like Inkling Sketch Manager
+```
+
+###X/Y TILT
 ----
 
-e.g.
-0x64 0x06 0x06 0x00 0x00 0xAD
+Tilt X and Tilt Y values are encoded as a one byte `char` values.
 
-PRESSURE (0x65 0x06)
---------
+BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5
+:-:|:-:|:-:|:-:|:-:|:-:|:-:
+*Marker*|*Length*|*X TILT*|*Y TILT*|*UNUSED*|*UNUSED*
+`0x65`|`0x06`|`VARIES`|`VARIES`|`0x00`|`0x00`|
 
-e.g.
-0x65 0x06 0x3D 0x28 0x00 0x00
+####Example
+
+```
+unsigned char  buffer[] = { 0x65, 0x06, 0x3D, 0x28 0x00, 0x00 };
+unsigned int   i = 0;
+char xTilt = buffer[i+2];  // get tilt x value
+char yTilt = buffer[i+3];  // get tilt y value
+
+```
+
+####Notes
+...
+
+
+###PRESSURE
+----
+
+Pressure is encoded as a two byte `unsigned short` value.
+
+BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5
+:-:|:-:|:-:|:-:|:-:|:-:|:-:
+*Marker*|*Length*|*UNUSED*|*UNUSED*|*PRES. HIGH*|*PRES. LOW*|
+`0x64`|`0x06`|`0x00`|`0x00`|`VARIES`|`VARIES`|
+
+####Example
+
+```
+unsigned char  buffer[] = { 0x64, 0x06, 0x00, 0x00, 0x00, 0xAD };
+unsigned int   i = 0;
+unsigned short pressure = (buffer[i+4] << 8) | (buffer[i+5]); // get pressure 
+```
+
+####Notes
+...
+
 
 COUNTER/TIMER MARKER
 --------------------
@@ -86,10 +153,12 @@ several counters then
 then sequential until the end of the file
 0xC2 0x06 0x11 0x00 0x00 ?
 
+The counter starts @ zero when the power is turned on.
+
 
 
 UNKNOWN SEQUENCES
-
+--------------------
 
 The "0xC70E" sequence.  Happens when there are sensor obstructions.
 
