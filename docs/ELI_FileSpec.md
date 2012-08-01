@@ -76,7 +76,7 @@ X and Y values are encoded as a two byte `short` values.
 
 ###Example
 
-```
+```c++
 unsigned char  buffer[] = { 0x61, 0x06, 0x03, 0x4F, 0x13, 0x61 };
 unsigned int   i = 0;
 unsigned short xPos = (buffer[i+2] << 8) | (buffer[i+3]); // get x value
@@ -86,7 +86,7 @@ unsigned short yPos = (buffer[i+4] << 8) | (buffer[i+5]); // get y value
 ###Notes
 The Inkling Sketch Manager software scales the resulting raw `x` and `y` values by `x / 10.0f` and `y / 5.0f` when creating the `.WAC` InkML output files. e.g.
 
-```
+```c++
 float x = xPos / 10.0f; // Scale like Inkling Sketch Manager
 float y = xPos /  5.0f; // Scale like Inkling Sketch Manager
 ```
