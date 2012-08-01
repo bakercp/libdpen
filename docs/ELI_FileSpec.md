@@ -14,7 +14,7 @@ The Wacom Inkling's official specifications can be found [here](http://www.wacom
 #Header
 The standard header length is **2059** bytes.  There are some variations between headers, but no examples have exceeded **2059** bytes.  The contents are still a work in progress.
 
-Byte Range|Function|_Notes_
+Byte_Range|Function|_Notes_
 -:|:-|:-
 A|A|A
 1|1|1
