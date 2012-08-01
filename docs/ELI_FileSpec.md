@@ -70,10 +70,10 @@ Pen Data
 
 X and Y values are encoded as a two byte `short` values.
 
-BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5
-:-:|:-:|:-:|:-:|:-:|:-:|:-:
-*Marker*|*Length*|*X HIGH*|*X LOW*|*Y HIGH*|*Y LOW*
-`0xF1`|`0x06`|`VARIES`|`VARIES`|`VARIES`|`VARIES`|
+|BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|*Marker*|*Length*|*X HIGH*|*X LOW*|*Y HIGH*|*Y LOW*|
+|`0xF1`|`0x06`|`VARIES`|`VARIES`|`VARIES`|`VARIES`|
 
 ####Example
 
