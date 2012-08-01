@@ -5,10 +5,10 @@ This specification is unofficial, incomplete, in progress and the result of tria
 Christopher Baker <http://christopherbaker.net>
 
 #Equipment
-
-###Wacom Inkling
+##Wacom Inkling
 The Wacom Inkling's official specifications can be found [here](http://www.wacom.com/en/Products/Inkling/Inkling-Technical-Specifics.aspx).  It appears that the sampling rate for the Inkling is 200 samples / second.  It provides 1024 levels of pressure.
-###Others
+
+##Others
 …
 
 #Header
