@@ -82,7 +82,6 @@ unsigned char  buffer[] = { 0x61, 0x06, 0x03, 0x4F, 0x13, 0x61 };
 unsigned int   i = 0;
 unsigned short xPos = (buffer[i+2] << 8) | (buffer[i+3]); // get x value
 unsigned short yPos = (buffer[i+4] << 8) | (buffer[i+5]); // get y value
-
 ```
 
 ####Notes
@@ -110,7 +109,6 @@ unsigned char  buffer[] = { 0x65, 0x06, 0x3D, 0x28 0x00, 0x00 };
 unsigned int   i = 0;
 char xTilt = buffer[i+2];  // get tilt x value
 char yTilt = buffer[i+3];  // get tilt y value
-
 ```
 
 ####Notes
