@@ -36,10 +36,10 @@ The standard header length is **2059** bytes.  There are some variations between
 A new layer is indicated by the byte sequence:
 
 
-BYTE_0|BYTE_1|BYTE_2
-:-:|:-:|:-:
-*Marker*|*Length*|*ID*
-`0xF1`|`0x03`|`0x80`
+|BYTE_0|BYTE_1|BYTE_2|
+|:-:|:-:|:-:|
+|*Marker*|*Length*|*ID*|
+|`0xF1`|`0x03`|`0x80`|
 
 
 The new layer marker will be present even when there is stroke data on the layer.  In the case of the Wacom Inkling, this can happen if one presses the new layer button multiple times without putting pen to paper.  Wacom's Sketch Manager software skips such "empty" layers during display and export.
@@ -49,24 +49,23 @@ The new layer marker will be present even when there is stroke data on the layer
 
 The beginning of a stroke (a pen down) is indicated by the 3 byte sequence:
 
-BYTE_0|BYTE_1|BYTE_2
-:-:|:-:|:-:
-*Marker*|*Length*|*ID*
-`0xF1`|`0x03`|`0x01`
+|BYTE_0|BYTE_1|BYTE_2|
+|:-:|:-:|:-:|
+|*Marker*|*Length*|*ID*|
+|`0xF1`|`0x03`|`0x01`|
 
 ##Stroke End
 
 The end of the stroke (a pen lift) is indicated by the 3 byte sequence:
 
-BYTE_0|BYTE_1|BYTE_2
-:-:|:-:|:-:
-*Marker*|*Length*|*ID*
-`0xF1`|`0x03`|`0x00`
+|BYTE_0|BYTE_1|BYTE_2|
+|:-:|:-:|:-:|
+|*Marker*|*Length*|*ID*|
+|`0xF1`|`0x03`|`0x00`|
 
-Pen Data
---------
+#Pen Data
 
-###X/Y POSITION
+##X/Y POSITION
 
 X and Y values are encoded as a two byte `short` values.
 
@@ -75,7 +74,7 @@ X and Y values are encoded as a two byte `short` values.
 |*Marker*|*Length*|*X HIGH*|*X LOW*|*Y HIGH*|*Y LOW*|
 |`0xF1`|`0x06`|`VARIES`|`VARIES`|`VARIES`|`VARIES`|
 
-####Example
+###Example
 
 ```
 unsigned char  buffer[] = { 0x61, 0x06, 0x03, 0x4F, 0x13, 0x61 };
@@ -84,7 +83,7 @@ unsigned short xPos = (buffer[i+2] << 8) | (buffer[i+3]); // get x value
 unsigned short yPos = (buffer[i+4] << 8) | (buffer[i+5]); // get y value
 ```
 
-####Notes
+###Notes
 The Inkling Sketch Manager software scales the resulting raw `x` and `y` values by `x / 10.0f` and `y / 5.0f` when creating the `.WAC` InkML output files. e.g.
 
 ```
@@ -92,17 +91,16 @@ float x = xPos / 10.0f; // Scale like Inkling Sketch Manager
 float y = xPos /  5.0f; // Scale like Inkling Sketch Manager
 ```
 
-###X/Y TILT
-----
+##X/Y TILT
 
 Tilt X and Tilt Y values are encoded as a one byte `char` values.
 
-BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5
-:-:|:-:|:-:|:-:|:-:|:-:|:-:
-*Marker*|*Length*|*X TILT*|*Y TILT*|*UNUSED*|*UNUSED*
-`0x65`|`0x06`|`VARIES`|`VARIES`|`0x00`|`0x00`|
+|BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|*Marker*|*Length*|*X TILT*|*Y TILT*|*UNUSED*|*UNUSED*|
+|`0x65`|`0x06`|`VARIES`|`VARIES`|`0x00`|`0x00`|
 
-####Example
+###Example
 
 ```
 unsigned char  buffer[] = { 0x65, 0x06, 0x3D, 0x28 0x00, 0x00 };
@@ -111,21 +109,20 @@ char xTilt = buffer[i+2];  // get tilt x value
 char yTilt = buffer[i+3];  // get tilt y value
 ```
 
-####Notes
+###Notes
 ...
 
 
-###PRESSURE
-----
+##PRESSURE
 
 Pressure is encoded as a two byte `unsigned short` value.
 
-BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5
-:-:|:-:|:-:|:-:|:-:|:-:|:-:
-*Marker*|*Length*|*UNUSED*|*UNUSED*|*PRES. HIGH*|*PRES. LOW*|
-`0x64`|`0x06`|`0x00`|`0x00`|`VARIES`|`VARIES`|
+|BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|*Marker*|*Length*|*UNUSED*|*UNUSED*|*PRES. HIGH*|*PRES. LOW*|
+|`0x64`|`0x06`|`0x00`|`0x00`|`VARIES`|`VARIES`|
 
-####Example
+###Example
 
 ```
 unsigned char  buffer[] = { 0x64, 0x06, 0x00, 0x00, 0x00, 0xAD };
@@ -133,12 +130,11 @@ unsigned int   i = 0;
 unsigned short pressure = (buffer[i+4] << 8) | (buffer[i+5]); // get pressure 
 ```
 
-####Notes
+###Notes
 ...
 
 
-COUNTER/TIMER MARKER
---------------------
+##COUNTER/TIMER MARKER
 
 Beginning
 
@@ -155,8 +151,7 @@ The counter starts @ zero when the power is turned on.
 
 
 
-UNKNOWN SEQUENCES
---------------------
+##UNKNOWN SEQUENCES
 
 The "0xC70E" sequence.  Happens when there are sensor obstructions.
 
