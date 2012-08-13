@@ -1,8 +1,10 @@
+```
 The .ELI/.WPI binary format is a serialized binary format representing pen data, including position, tilt, pressure, timing, strokes, layers, and more.
 
 This specification is unofficial, incomplete, in progress and the result of trial and error, a hex editor, and a handful of .WPI files carefully generated with the Wacom Inkling.
 
 Christopher Baker <http://christopherbaker.net>
+```
 
 #Equipment
 ##Wacom Inkling
@@ -155,7 +157,7 @@ Timing blocks begin with a `0xC2` are `0x06` bytes long and are identified by a 
 
 ##Clock
 
-Throughout each file, a time marker is recorded every second beginning with device power on.  They are identified by a block id of `0x11`.  The timing sequence is composed of 6 bytes.  The elapsed time is encoded in the last two bytes as an `unsigned short`.  BYTE_3 may also be used to encode time, but the last two bytes can represent 2^8 seconds (over 18 hours).  No test data of this duration has been generated.
+Throughout each file, a time marker is recorded every second beginning with device power on.  They are identified by a block id of `0x11`.  The timing sequence is composed of 6 bytes.  The elapsed time is encoded in the last two bytes as an `unsigned short`.  BYTE_3 may also be used to encode time, but the last two bytes can represent 2<sup>8</sup> seconds (over 18 hours).  No test data of this duration has been generated.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -212,19 +214,39 @@ The interference sequence occurs when an object is placed in front of the sensor
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|BYTE_6|BYTE_7|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|*Marker*|*Length*|*?*|*?*|*?*|*?*|*?*|*?*|
-|`0xC7`|`0x1E`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`VARIES`|`VARIES`|`VARIES`|
+|*Marker*|*Length (30)*|*?*|*?*|*?*|*?*|*?*|*?*|
+|`0xC7`|`0x1E`|`0x05 or 0x03`[‡](#‡)|`0x04 or 0x02`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x07`[‡](#‡)|`0x00`[‡](#‡)|
 
 |BYTE_8|BYTE_9|BYTE_10|BYTE_11|BYTE_12|BYTE_13|BYTE_14|BYTE_15|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|*?*|*?*|*?*|*COUNTER LOW*|*COUNTER HIGH*|*?*|*?*|*?*|
+|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`VARIES`|`VARIES`|`VARIES`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
+
+|BYTE_16|BYTE_17|BYTE_18|BYTE_19|BYTE_20|BYTE_21|BYTE_22|BYTE_23|
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 |*?*|*?*|*?*|*?*|*?*|*?*|*?*|*?*|
-|`?`|`?`|`?`|`?`|`?`|`?`|`?`|`?`|
+|`0x00`|`0x00`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00 OR 0x01`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
 
+|BYTE_24|BYTE_25|BYTE_26|BYTE_27|BYTE_28|BYTE_29|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|*?*|*?*|*?*|*?*|*?*|*?*|
+|`0x00`[‡](#‡)|`0x00 OR 0x01`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
 
+###Notes
+> ...
 
 ##0xC7, 0x1A [INCOMPLETE](#Incomplete)
+###Notes
+> ...
+
 ##0xC7, 0x16 [INCOMPLETE](#Incomplete)
+###Notes
+> ...
+
 ##0xC7, 0x22 [INCOMPLETE](#Incomplete)
+###Notes
+> ...
+
 
 
 
