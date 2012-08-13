@@ -116,7 +116,7 @@ Tilt X and Tilt Y values are encoded as a one byte `char` values.
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |*Marker*|*Length*|*X TILT*|*Y TILT*|*?*|*?*|
-|`0x65`|`0x06`|`VARIES`|`VARIES`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
+|`0x65`|`0x06`|`VARIES`|`VARIES`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|
 
 ###Example
 
@@ -138,7 +138,7 @@ Pressure is encoded as a two byte `unsigned short` value.  Pressure values range
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |*Marker*|*Length*|*?*|*?*|*PRES. HIGH*|*PRES. LOW*|
-|`0x64`|`0x06`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`VARIES`|`VARIES`|
+|`0x64`|`0x06`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`VARIES`|`VARIES`|
 
 ###Example
 
@@ -162,7 +162,7 @@ Throughout each file, a time marker is recorded every second beginning with devi
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |*Marker*|*Length*|*ID*|*?*|*COUNTER HIGH*|*COUNTER LOW*|
-|`0xC2`|`0x06`|`0x11`|`0x00`[‡](#‡)|`VARIES`|`VARIES`|
+|`0xC2`|`0x06`|`0x11`|`0x00`[‡](#dc)|`VARIES`|`VARIES`|
 
 ###Example
 ```c++
@@ -181,7 +181,7 @@ The clock "init" block happens early in all files examined -- usually before the
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |*Marker*|*Length*|*ID*|*?*|*?*|*Alternates b/t 0x01/0x02*|
-|`0xC2`|`0x06`|`0x00`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x01, 0x02`[‡](#‡)|
+|`0xC2`|`0x06`|`0x00`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x01, 0x02`[‡](#dc)|
 
 ##Clock "Unknown" [INCOMPLETE](#Incomplete)
 
@@ -190,7 +190,7 @@ The clock "unknown" block usually only happens once per file.  It is usually loc
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |*Marker*|*Length*|*ID*|*?*|*?*|*?*|
-|`0xC2`|`0x06`|`0x12`|`0x00`[‡](#‡)|`VARIES`|`VARIES`|
+|`0xC2`|`0x06`|`0x12`|`0x00`[‡](#dc)|`VARIES`|`VARIES`|
 
 
 #Quality / Control Blocks
@@ -202,12 +202,12 @@ The interference sequence occurs when an object is placed in front of the sensor
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|BYTE_6|BYTE_7|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 |*Marker*|*Length*|*?*|*?*|*?*|*?*|*?*|*?*|
-|`0xC7`|`0x0E`|`0x04`[‡](#‡)|`0x04`[‡](#‡)|`0x03`[‡](#‡)|`VARIES`|`VARIES`|`VARIES`|
+|`0xC7`|`0x0E`|`0x04`[‡](#dc)|`0x04`[‡](#dc)|`0x03`[‡](#dc)|`VARIES`|`VARIES`|`VARIES`|
 
 |BYTE_8|BYTE_9|BYTE_10|BYTE_11|BYTE_12|BYTE_13|
 |:----:|:----:|:-----:|:-----:|:-----:|:-----:|
 |*?*|*?*|*COUNTER LOW*|*COUNTER HIGH*|*?*|*?*|
-|`VARIES`|`VARIES`|`VARIES`|`VARIES`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
+|`VARIES`|`VARIES`|`VARIES`|`VARIES`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|
 
 
 ##0xC7, 0x1E [INCOMPLETE](#Incomplete)
@@ -215,22 +215,22 @@ The interference sequence occurs when an object is placed in front of the sensor
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|BYTE_6|BYTE_7|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 |*Marker*|*Length (30)*|*?*|*?*|*?*|*?*|*?*|*?*|
-|`0xC7`|`0x1E`|`0x05 or 0x03`[‡](#‡)|`0x04 or 0x02`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x07`[‡](#‡)|`0x00`[‡](#‡)|
+|`0xC7`|`0x1E`|`0x05 or 0x03`[‡](#dc)|`0x04 or 0x02`[‡](#dc)|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x07`[‡](#dc)|`0x00`[‡](#dc)|
 
 |BYTE_8|BYTE_9|BYTE_10|BYTE_11|BYTE_12|BYTE_13|BYTE_14|BYTE_15|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |*?*|*?*|*?*|*COUNTER LOW*|*COUNTER HIGH*|*?*|*?*|*?*|
-|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`VARIES`|`VARIES`|`VARIES`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
+|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`VARIES`|`VARIES`|`VARIES`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x00`[‡](#dc)|
 
 |BYTE_16|BYTE_17|BYTE_18|BYTE_19|BYTE_20|BYTE_21|BYTE_22|BYTE_23|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 |*?*|*?*|*?*|*?*|*?*|*?*|*?*|*?*|
-|`0x00`|`0x00`|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00 OR 0x01`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
+|`0x00`|`0x00`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x00 OR 0x01`[‡](#dc)|`0x00`[‡](#dc)|`0x00`[‡](#dc)|
 
 |BYTE_24|BYTE_25|BYTE_26|BYTE_27|BYTE_28|BYTE_29|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |*?*|*?*|*?*|*?*|*?*|*?*|
-|`0x00`[‡](#‡)|`0x00 OR 0x01`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|`0x00`[‡](#‡)|
+|`0x00`[‡](#dc)|`0x00 OR 0x01`[‡](#dc)|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x00`[‡](#dc)|
 
 ###Notes
 > ...
@@ -280,6 +280,6 @@ e.g.
 * <a id="*">\*</a> : 
 * <a id="**">\**</a> : -
 * <a id="†">†</a> : 
-* <a id="‡">‡</a> : Typical Value - could take other values, but no other values have been observed.
+* <a id="dc">‡</a> : Typical Value - could take other values, but no other values have been observed.
 * <a id="§">§</a> : -
 * <a id="Incomplete">Incomplete</a> : Incomplete - more data needed.
