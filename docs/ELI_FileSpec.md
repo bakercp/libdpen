@@ -276,6 +276,7 @@ e.g.
 
 
 #Footnotes
+* test <a id="dcc"></a>dcc
 * <a id="*">\*</a> : 
 * <a id="**">\**</a> : -
 * <a id="†">†</a> : 
