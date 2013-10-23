@@ -12,3 +12,6 @@ https://github.com/bakercp/libdpen/blob/master/docs/ELI_FileSpec.md
 This library allows an alternative to commercial readers such as Wacom's Sketch Manager http://www.wacom.com/en/Products/Inkling/Sketch-Manager.aspx and , Intellipen's Pen & Ink Editor http://www.intellipens.com/?CategoryID=160, etc.
 
 
+Also, this is related:
+
+http://www.useful-tools.de/EN-WPI-Format-Downloads.html
