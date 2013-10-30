@@ -24,6 +24,8 @@
 
 
 #include "dpen/DPUtils.h"
+#include <algorithm>
+#include <cstring>
 
 
 short readShort(std::vector<unsigned char>& buf, unsigned int& i)

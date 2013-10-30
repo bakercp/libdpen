@@ -190,7 +190,7 @@ bool DPSketch::addPressureChannel()
 {
     if(hasPressure())
     {
-        return;
+        return true;
     }
 
     DPFloatChannel pressureChan;
@@ -199,6 +199,8 @@ bool DPSketch::addPressureChannel()
     pressureChan.setMin(0);
     pressureChan.setMax(1024);
     _definitions.getTraceFormatsRef().addChannel(pressureChan);
+
+  return true;
 }
 
 void DPSketch::addTimestampChannel()
