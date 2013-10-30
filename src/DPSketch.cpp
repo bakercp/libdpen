@@ -59,20 +59,6 @@ void DPSketch::setLayers(const std::vector<DPTraceGroup>& layers)
     _layers = layers;
 }
 
-std::string DPSketch::toString()
-{
-    std::stringstream ss;
-    ss << "[DPSKETCH" << std::endl;
-    ss << _definitions.toString() << std::endl;
-    for(std::size_t i = 0; i < _layers.size(); ++i)
-    {
-        ss << _layers[i].toString() << std::endl;
-    }
-    ss << "]";
-
-    return ss.str();
-}
-
 bool DPSketch::isEmpty() const
 {
     return _layers.empty();
@@ -113,30 +99,6 @@ std::string DPSketch::getSketchStats() const
     ss << "]";
     ss << std::endl;
     return ss.str();
-}
-
-DPTracePoint* DPSketch::getFirstPoint()
-{
-    if(_layers.empty())
-    {
-        return 0;
-    }
-    else
-    {
-        return _layers[0].getFirstPoint();
-    }
-}
-
-DPTracePoint* DPSketch::getLastPoint()
-{
-    if(_layers.empty())
-    {
-        return 0;
-    }
-    else
-    {
-        return _layers[_layers.size()-1].getLastPoint();
-    }
 }
 
 bool DPSketch::hasPosition() const
@@ -247,8 +209,22 @@ void DPSketch::addTimestampChannel()
     }
     DPFloatChannel timestampChan;
     timestampChan.setName("timestamp");
-    timestampChan.setUnits("0.1sec");
+    timestampChan.setUnits("0.0067sec");
     timestampChan.setMin(0);
     timestampChan.setMax(128);
     _definitions.getTraceFormatsRef().addChannel(timestampChan);
+}
+
+std::string DPSketch::toString()
+{
+    std::stringstream ss;
+    ss << "[DPSKETCH" << std::endl;
+    ss << _definitions.toString() << std::endl;
+    for(std::size_t i = 0; i < _layers.size(); ++i)
+    {
+        ss << _layers[i].toString() << std::endl;
+    }
+    ss << "]";
+
+    return ss.str();
 }

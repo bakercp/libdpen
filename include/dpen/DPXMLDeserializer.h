@@ -138,6 +138,7 @@ public:
             }
             else if(DPIsMatch(elem->Value(),"trace"))
             {
+                // TODO: estimate trace start time based on number of samples before
                 DPTrace trace;
                 trace.setContext(getStringAttr(elem, "contextRef"));
                 

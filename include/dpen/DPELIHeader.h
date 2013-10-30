@@ -26,40 +26,31 @@
 #pragma once
 
 
-#include <vector>
-#include "dpen/DPTracePoint.h"
+#include <string>
 
 
-class DPTrace
+class DPELIHeader
 {
 public:
-    DPTrace(unsigned long long startTimeMillis = 0);
-    virtual ~DPTrace();
+    DPELIHeader(): _samplingFrequency(150)
+    {
+    }
 
-    unsigned long long getStartTimeMillis() const;
-    void setStartTimeMillis(unsigned long long startTimeMillis);
+    virtual ~DPELIHeader()
+    {
+    }
 
-    void setContext(const std::string& context);
-    std::string getContext();
+    void setSamplingFrequency(unsigned long long samplingFrequency)
+    {
+        _samplingFrequency = samplingFrequency;
+    }
 
-    bool isEmpty() const;
-    void clear();
+    unsigned long long getSamplingFrequency(unsigned long long samplingFrequency)
+    {
+        return _samplingFrequency;
+    }
 
-    void push_back(const DPTracePoint& pnt);
-    
-    std::vector<DPTracePoint>& getPointsRef();
-
-    std::size_t getNumPoints() const;
-
-    void setPoints(const std::vector<DPTracePoint>& points);
-
-    std::string toString() const;
-
-
-protected:
-    unsigned long long _startTimeMillis;
-
-    std::string _context;
-    std::vector<DPTracePoint> _points;
+private:
+    unsigned long long _samplingFrequency;
 
 };

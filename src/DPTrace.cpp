@@ -23,43 +23,74 @@
 // =============================================================================
 
 
-#pragma once
+#include "dpen/DPTrace.h"
 
-
-#include <vector>
-#include "dpen/DPTracePoint.h"
-
-
-class DPTrace
+DPTrace::DPTrace(unsigned long long startTimeMillis): _startTimeMillis(startTimeMillis)
 {
-public:
-    DPTrace(unsigned long long startTimeMillis = 0);
-    virtual ~DPTrace();
+}
 
-    unsigned long long getStartTimeMillis() const;
-    void setStartTimeMillis(unsigned long long startTimeMillis);
+DPTrace::~DPTrace()
+{
+}
 
-    void setContext(const std::string& context);
-    std::string getContext();
+unsigned long long DPTrace::getStartTimeMillis() const
+{
+    return _startTimeMillis;
+}
 
-    bool isEmpty() const;
-    void clear();
+void DPTrace::setStartTimeMillis(unsigned long long startTimeMillis)
+{
+    _startTimeMillis = startTimeMillis;
+}
 
-    void push_back(const DPTracePoint& pnt);
-    
-    std::vector<DPTracePoint>& getPointsRef();
+void DPTrace::setContext(const std::string& context)
+{
+    _context = context;
+}
 
-    std::size_t getNumPoints() const;
+std::string DPTrace::getContext()
+{
+    return _context;
+}
 
-    void setPoints(const std::vector<DPTracePoint>& points);
+bool DPTrace::isEmpty() const
+{
+    return _points.empty();
+}
 
-    std::string toString() const;
+void DPTrace::clear()
+{
+    _points.clear();
+}
 
+void DPTrace::push_back(const DPTracePoint& pnt)
+{
+    _points.push_back(pnt);
+}
 
-protected:
-    unsigned long long _startTimeMillis;
+std::vector<DPTracePoint>& DPTrace::getPointsRef()
+{
+    return _points;
+}
 
-    std::string _context;
-    std::vector<DPTracePoint> _points;
+std::size_t DPTrace::getNumPoints() const
+{
+    return _points.size();
+}
 
-};
+void DPTrace::setPoints(const std::vector<DPTracePoint>& points)
+{
+    _points = points;
+}
+
+std::string DPTrace::toString() const
+{
+    std::stringstream ss;
+    ss << "Trace conext=" << _context << " " << std::endl;
+    for(std::size_t i = 0 ; i < _points.size(); ++i)
+    {
+        ss << _points[i].toString() << std::endl;
+    }
+    return ss.str();
+}
+

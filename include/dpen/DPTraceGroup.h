@@ -42,10 +42,10 @@ public:
     void push_back(const DPTrace& trace);
     bool isEmpty() const;
     void clear();
+
     std::size_t getNumTraces() const;
     std::size_t getNumPoints() const;
-    DPTracePoint* getFirstPoint();
-    DPTracePoint* getLastPoint();
+
     std::string toString() const;
     
 protected:

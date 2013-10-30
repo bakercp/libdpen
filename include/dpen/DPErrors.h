@@ -28,6 +28,7 @@
 
 #include <string>
 #include <iostream>
+#include "dpen/DPUtils.h"
 
 
 static bool LOG_DEBUG = true;

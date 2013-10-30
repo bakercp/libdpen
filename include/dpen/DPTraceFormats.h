@@ -39,7 +39,7 @@ public:
     {
     }
 
-    DPTraceFormats(const std::string& id) : _id(id)
+    DPTraceFormats(const std::string& id): _id(id)
     {
     }
     

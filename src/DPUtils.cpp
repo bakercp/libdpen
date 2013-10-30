@@ -55,12 +55,13 @@ char readChar(std::vector<unsigned char>& buf, unsigned int& i)
 bool DPReadBinaryFile(const std::string& path, std::vector<unsigned char>& buffer)
 {
     std::ifstream file(path.c_str(), std::ios::in | std::ios::binary | std::ios::ate);
+
     if (file.is_open())
     {
         std::ifstream::pos_type size = file.tellg(); // how long is the file?
         buffer.resize(size); // resize buffer to fit
-        file.seekg (0, std::ios::beg); // back to beginning b/c the file was opened w/ ios::ate
-        file.read ( (char*) &buffer[0], size); // read int size # bytes
+        file.seekg(0, std::ios::beg); // back to beginning b/c the file was opened w/ ios::ate
+        file.read((char*)&buffer[0], size); // read int size # bytes
         file.close(); // close the file
         return true;
     }
@@ -86,7 +87,7 @@ std::string DPStringToString(const char* str)
 //	out << fixed << setfill(fill) << setw(width) << setprecision(precision) << value;
 //	return out.str();
 //}
-//
+
 float DPStringToFloat(const std::string& floatString)
 {
     float x = 0;
@@ -103,7 +104,6 @@ short int DPStringToShortInt(const std::string& shortString)
     return x;
 }
 
-
 //template <class T>
 //string DPToHex(const T& value) {
 //	ostringstream out;
@@ -119,7 +119,7 @@ short int DPStringToShortInt(const std::string& shortString)
 //	return out.str();
 //}
 //
-////----------------------------------------
+
 template <>
 inline std::string DPToHex(const std::string& value)
 {
@@ -134,7 +134,6 @@ inline std::string DPToHex(const std::string& value)
 	return out.str();
 }
 
-//----------------------------------------
 std::string DPToHex(const char* value)
 {
 	// this function is necessary if you want to print a string
@@ -148,7 +147,6 @@ bool DPIsMatch(const char* name0, const char* name1)
 {
     return strcmp(name0, name1) == 0;
 }
-
 
 // trim from start
 std::string& DPLTrim(std::string& s)

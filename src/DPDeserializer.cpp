@@ -27,129 +27,20 @@
 #include "dpen/DPUtils.h"
 
 
-std::map<DPELIBlockCode,DPELIBlockDef> create_map()
+DPDeserializer::DPDeserializer():
+    hasInterference(false),
+    interferenceValueMajor(0),
+    interferenceValueMinor(0),
+    thisBlockCode(DPBlockDefinition::DP_BLOCK_UNKNOWN),
+    lastBlockCode(DPBlockDefinition::DP_BLOCK_UNKNOWN),
+    samplesSinceTimestamp(0),
+    lastTimestampMillis(0),
+    i(0)
 {
-    std::map<DPELIBlockCode,DPELIBlockDef> m;
-    m[DP_BLOCK_LAYER_START]  = DPELIBlockDef(0xF1, 0x03, 0x80, true, DP_BLOCK_LAYER_START,    "Layer Start      :", false);
-    m[DP_BLOCK_STROKE_START] = DPELIBlockDef(0xF1, 0x03, 0x01, true, DP_BLOCK_STROKE_START,   "Stroke Start     :", false);
-    m[DP_BLOCK_STROKE_END]   = DPELIBlockDef(0xF1, 0x03, 0x00, true, DP_BLOCK_STROKE_END,     "Stroke End       :", false);
-    
-    m[DP_BLOCK_PEN_POSITION] = DPELIBlockDef(0x61, 0x06, 0x00, false, DP_BLOCK_PEN_POSITION,  "Position         :", false);
-    m[DP_BLOCK_PEN_TILT]     = DPELIBlockDef(0x65, 0x06, 0x00, false, DP_BLOCK_PEN_TILT,      "Tilt             :", false);
-    m[DP_BLOCK_PEN_PRESSURE] = DPELIBlockDef(0x64, 0x06, 0x00, false, DP_BLOCK_PEN_PRESSURE,  "Pressure         :", false);
-    
-    m[DP_BLOCK_CLOCK_COUNTER] = DPELIBlockDef(0xC2, 0x06, 0x11, true, DP_BLOCK_CLOCK_COUNTER, "Clock Counter    :", false);
-    m[DP_BLOCK_CLOCK_UNKNOWN] = DPELIBlockDef(0xC2, 0x06, 0x12, true, DP_BLOCK_CLOCK_UNKNOWN, "Clock (?)        :", false);
-    m[DP_BLOCK_CLOCK_INIT]    = DPELIBlockDef(0xC2, 0x06, 0x00, true, DP_BLOCK_CLOCK_INIT,    "Clock Init (?)   :", false);
-    
-    m[DP_BLOCK_C5]    = DPELIBlockDef(0xC5, 0x13, 0x00, false, DP_BLOCK_C5,     "0xC5 (?)         :", false);
-    
-    m[DP_BLOCK_C7_INTERFERENCE] = DPELIBlockDef(0xC7, 0x0E, 0x00, false, DP_BLOCK_C7_INTERFERENCE,
-                                                                                              "Interference     :", false);
-    m[DP_BLOCK_C7_1E] = DPELIBlockDef(0xC7, 0x1E, 0x00, false, DP_BLOCK_C7_1E,  "0xC7-0x1E (?)    :", true);
-    m[DP_BLOCK_C7_1A] = DPELIBlockDef(0xC7, 0x1A, 0x00, false, DP_BLOCK_C7_1A,  "0xC7-0x1A (?)    :", false);
-    m[DP_BLOCK_C7_16] = DPELIBlockDef(0xC7, 0x16, 0x00, false, DP_BLOCK_C7_16,  "0xC7-0x16 (?)    :", false);
-    m[DP_BLOCK_C7_22] = DPELIBlockDef(0xC7, 0x22, 0x00, false, DP_BLOCK_C7_22,  "0xC7-0x22 (?)    :", false);
-    return m;
 }
 
-
-std::map<DPELIBlockCode,DPELIBlockDef> blockEventMap = create_map();
-
-
-bool dumpDebugCounts()
+DPDeserializer::~DPDeserializer()
 {
-    std::map<DPELIBlockCode,DPELIBlockDef>::iterator iter = blockEventMap.begin();
-
-    std::cout << "--------------DEBUG COUNTS--------------" << std::endl;
-    while(iter != blockEventMap.end())
-    {
-        std::cout << (*iter).second.getName() << " " << (*iter).second.getCount() << std::endl;
-        ++iter;
-    }
-}
-
-bool resetDebugCounts()
-{
-    std::map<DPELIBlockCode,DPELIBlockDef>::iterator iter = blockEventMap.begin();
-
-    while(iter != blockEventMap.end())
-    {
-        (*iter).second.resetCount();
-        ++iter;
-    }
-}
-
-bool matchEventBlock(std::vector<unsigned char>& buf,
-                     std::size_t i,
-                     DPELIBlockCode& blockCode)
-{
-    std::size_t bufRemaining = buf.size() - i;
-    blockCode = DP_BLOCK_UNKNOWN;
-
-    if(bufRemaining <= 0)
-    {
-        DPLogError("Trying to read, but buffer empty.");
-        return false;
-    }
-    
-    std::map<DPELIBlockCode,DPELIBlockDef>::iterator iter = blockEventMap.begin();
-    
-    for (;iter != blockEventMap.end();++iter)
-    {
-        if (buf[i] == (*iter).second.getBlockStart())
-        {
-            if (bufRemaining > 1 && buf[i+1] == (*iter).second.getBlockLength())
-            {
-                if (bufRemaining >= buf[i+1])
-                {
-                    if ((*iter).second.getBlockIdMustMatch())
-                    {
-                        if ((*iter).second.getBlockId() == buf[i+2])
-                        {
-                            // matched the blockid
-                            blockCode = (*iter).second.getBlockCode();
-                            return true;
-                        }
-                        else
-                        {
-                            continue; // no match
-                        }
-                    }
-                    else
-                    {
-                        // didn't need to match the block id
-                        blockCode = (*iter).second.getBlockCode();
-                        return true;
-                    }
-                }
-                else
-                {
-                    DPLogError("Trying to read, but there are not enough bytes left in the buffer to read this entire block.");
-                    return false;
-                }
-            }
-        }
-    }
-    return true;
-}
-
-bool hasBlockCode(const DPELIBlockCode& code)
-{
-    return blockEventMap.find(code) != blockEventMap.end();
-}
-
-bool getELIBlockDef(const DPELIBlockCode& code, DPELIBlockDef& def)
-{
-    std::map<DPELIBlockCode,DPELIBlockDef>::iterator iter = blockEventMap.find(code);
-    
-    if(iter != blockEventMap.end())
-    {
-        def = (*iter).second;
-        return true;
-    } else {
-        return false;
-    }
 }
 
 DPError DPDeserializer::deserialize(const std::string& filename, DPSketch& _sketch)
@@ -173,7 +64,15 @@ DPError DPDeserializer::deserialize(const std::string& filename, DPSketch& _sket
 DPError DPDeserializer::processHeader()
 {
     // TODO.  get something out of here.
-    
+
+    // here we assume a sampling frequencey of 150 Hz (inkling)
+    header.setSamplingFrequency(150);
+
+    sketch.addPositionChannel();
+    sketch.addTiltChannel();
+    sketch.addPressureChannel();
+
+
     //    bool loadFileHB(string file) {
     //        cout << file << endl;
     //        vector<unsigned char> b;
@@ -194,132 +93,142 @@ DPError DPDeserializer::processHeader()
 
 bool DPDeserializer::processClockCounter()
 {
+//    std::cout << "CLOCK_COUNTER" << std::endl;
     i+=4;
-    numSeconds = readUShort(buf,i);
-    //samplesSinceTimestamp = 0;
+
+    lastTimestampMillis = readUShort(buf,i) * 1000; // get milliseconds
+
+//    std::cout << "processClockCounter " << numSeconds << std::endl;
+
+    std::cout << "lastTimeStampMillis: " << lastTimestampMillis << " samplesSinceTimestamp: " << samplesSinceTimestamp << std::endl;
+
+    samplesSinceTimestamp = 0;
+
     return true;
 }
 
 bool DPDeserializer::processClockInit()
 {
-//    if(blockEventMap[DP_BLOCK_CLOCK_INIT].cnt > 1) {
-//        DPLogError(DPToString(blockEventMap[DP_BLOCK_CLOCK_INIT].cnt, 0, 3, ' ') + " Clock Inits Found");
-//    }
+//    std::cout << "DP_BLOCK_CLOCK_INIT" << std::endl;
+
+    if(DPBlockDefinition::blockEventMap[DPBlockDefinition::DP_BLOCK_CLOCK_INIT].getCount() > 1)
+    {
+        DPLogError(DPToString(DPBlockDefinition::blockEventMap[DPBlockDefinition::DP_BLOCK_CLOCK_INIT].getCount(), 0, 3, ' ') + " Clock Inits Found");
+    }
+
     i+=4; //
+
     unsigned short v = readUShort(buf, i);
-//    if(v != 1) DPLogDebug("Clock Init : " + DPToString(v, 0, 4, ' '));
+
+    if(v != 1)
+    {
+        DPLogDebug("Clock Init : " + DPToString(v, 0, 4, ' '));
+    }
+
     return true;
 }
 
 bool DPDeserializer::processClockUnknown()
 {
-//    if(blockEventMap[DP_BLOCK_CLOCK_UNKNOWN].cnt > 1) {
-//        DPLogError(DPToString(blockEventMap[DP_BLOCK_CLOCK_UNKNOWN].cnt, 0, 3, ' ') + " Clock Unknown Found");
-//    }
+//    std::cout << "DP_BLOCK_CLOCK_UNKNOWN" << std::endl;
+    if(DPBlockDefinition::blockEventMap[DPBlockDefinition::DP_BLOCK_CLOCK_UNKNOWN].getCount() > 1)
+    {
+        DPLogError(DPToString(DPBlockDefinition::blockEventMap[DPBlockDefinition::DP_BLOCK_CLOCK_UNKNOWN].getCount(), 0, 3, ' ') + " Clock Unknown Found");
+    }
+
     i+=4;
+
     unsigned short v = readUShort(buf, i);
-    if(v != 1) DPLogDebug("Clock Unknown : " + DPToString(v, 0, 4, ' '));
+
+    if(v != 1)
+    {
+        DPLogDebug("Clock Unknown : " + DPToString(v, 0, 4, ' '));
+    }
+
     return true;
 }
 
 bool DPDeserializer::processPosition()
 {
-    if(sketch.hasPosition())
+    // do we have a point already defined?
+    if(currentPoint.isPositionSet())
     {
-        if(currentPoint.isPositionSet())
-        {
-            // position was already set, so we must be on a new set
-            currentTrace.push_back(currentPoint);
-            currentPoint.clear();
-            //samplesSinceTimestamp++;
-        }
+        currentTrace.push_back(currentPoint);
+        currentPoint.clear();
     }
-    else
-    {
-        sketch.addPositionChannel();
-    }
-    
-    // read it;
-    i+=2; // skip markers
+
+    i += 2; // skip markers
     currentPoint.setX(readShort(buf, i) / 10.0f); // this scaling factor is what inkling uses for WAC
     currentPoint.setY(readShort(buf, i) /  5.0f); // this scaling factor is what inkling uses for WAC
+
+    samplesSinceTimestamp++;
+
     return true;
 }
 
 bool DPDeserializer::processTilt()
 {
-    if(sketch.hasTilt())
-    {
-        if(currentPoint.isTiltSet())
-        {
-            // position was already set, so we must be on a new set
-            currentTrace.push_back(currentPoint);
-            currentPoint.clear();
-            //samplesSinceTimestamp++;
-        }
-    }
-    else
-    {
-        sketch.addTiltChannel();
-    }
-    
     i+=2; // skip markers
     currentPoint.setTiltX(readChar(buf, i));
     currentPoint.setTiltY(readChar(buf, i));
     i+=2; // skip empty bytes after data
-
     return true;
 }
 
 bool DPDeserializer::processPressure()
 {
-    if(sketch.hasPressure())
-    {
-        if(currentPoint.isPressureSet()) {
-            // position was already set, so we must be on a new set
-            currentTrace.push_back(currentPoint);
-            currentPoint.clear();
-            //samplesSinceTimestamp++;
-        }
-    }
-    else
-    {
-        sketch.addPressureChannel();
-    }
-    
     i+=2; // skip markers
     i+=2; // skip empty bytes before data
     currentPoint.setPressure(readUShort(buf, i));
-
     return true;
 }
 
 bool DPDeserializer::processLayerStart()
 {
-    i += blockEventMap[DP_BLOCK_LAYER_START].getBlockLength();
-    if(!currentLayer.isEmpty()) sketch.push_back(currentLayer);
-    currentLayer.clear();
+    std::cout << "DP_BLOCK_LAYER_START" << std::endl;
+
+    i += DPBlockDefinition::blockEventMap[DPBlockDefinition::DP_BLOCK_LAYER_START].getBlockLength();
+
+    if(!currentLayer.isEmpty())
+    {
+        sketch.push_back(currentLayer);
+        currentLayer.clear();
+    }
+    
     return true;
 }
 
-bool DPDeserializer::processStrokeStart()
+bool DPDeserializer::processTraceStart()
 {
-    i += blockEventMap[DP_BLOCK_STROKE_START].getBlockLength();
-    if(!currentTrace.isEmpty()) currentLayer.push_back(currentTrace);
-    currentTrace.clear();
+//    std::cout << "DP_BLOCK_TRACE_START" << std::endl;
+
+    i += DPBlockDefinition::blockEventMap[DPBlockDefinition::DP_BLOCK_TRACE_START].getBlockLength();
+
+    // do we have a point already defined?
+    if(currentPoint.isPositionSet())
+    {
+        currentTrace.push_back(currentPoint);
+        currentPoint.clear();
+    }
+
+    if(!currentTrace.isEmpty())
+    {
+        currentLayer.push_back(currentTrace);
+        currentTrace.clear();
+    }
+
     return true;
 }
 
-bool DPDeserializer::processStrokeEnd()
+bool DPDeserializer::processTraceEnd()
 {
-    i += blockEventMap[DP_BLOCK_STROKE_END].getBlockLength();
-    if(!currentTrace.isEmpty()) currentLayer.push_back(currentTrace);
-    currentTrace.clear();
+    i += DPBlockDefinition::blockEventMap[DPBlockDefinition::DP_BLOCK_TRACE_END].getBlockLength();
     return true;
 }
 
 bool DPDeserializer::processC5()
 {
+//    std::cout << "C5_UNKNNOWN" << std::endl;
     // we don't yet know what this is
     unsigned char lengthOfPacket = buf[i+1];
     i += lengthOfPacket; // consume the second section
@@ -328,6 +237,7 @@ bool DPDeserializer::processC5()
 
 bool DPDeserializer::processC7()
 {
+//    std::cout << "C7_UNKNNOWN" << std::endl;
     // we don't yet know what this is
     unsigned char lengthOfPacket = buf[i+1];
     i += lengthOfPacket; // consume the second section
@@ -389,7 +299,7 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
         return DP_ERROR_INVALID_HEADER;
     }
 
-    resetDebugCounts(); // reset debug counts
+    DPBlockDefinition::resetDebugCounts(); // reset debug counts
     
     // start moving through the data
     std::size_t n = buf.size();
@@ -398,64 +308,63 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
     interferenceValueMajor = 0;
     interferenceValueMinor = 0;
 
-    thisBlockCode = DP_BLOCK_UNKNOWN;
-    lastBlockCode = DP_BLOCK_UNKNOWN;
+    thisBlockCode = DPBlockDefinition::DP_BLOCK_UNKNOWN;
+    lastBlockCode = DPBlockDefinition::DP_BLOCK_UNKNOWN;
 
     for(i = DP_HEADER_END; i < n;) // start!
     {
-        if(matchEventBlock(buf, i, thisBlockCode))
+        if(DPBlockDefinition::matchEventBlock(buf, i, thisBlockCode))
         {
-            if(hasBlockCode(thisBlockCode))
+            if(DPBlockDefinition::hasBlockCode(thisBlockCode))
             {
-                if(blockEventMap[thisBlockCode].getDebug())
+                if(DPBlockDefinition::blockEventMap[thisBlockCode].getDebug())
                 {
-                    DPLogBlock(blockEventMap[thisBlockCode].getName(), buf,i);
+                    DPLogBlock(DPBlockDefinition::blockEventMap[thisBlockCode].getName(), buf,i);
                 }
 
-                blockEventMap[thisBlockCode].incrementCount();
+                DPBlockDefinition::blockEventMap[thisBlockCode].incrementCount();
 
                 lastBlockCode = thisBlockCode;
 
-
                 switch (thisBlockCode)
                 {
-                    case DP_BLOCK_LAYER_START:
+                    case DPBlockDefinition::DP_BLOCK_LAYER_START:
                         if(processLayerStart()) continue;
                         break;
-                    case DP_BLOCK_STROKE_START:
-                        if(processStrokeStart()) continue;
+                    case DPBlockDefinition::DP_BLOCK_TRACE_START:
+                        if(processTraceStart()) continue;
                         break;
-                    case DP_BLOCK_STROKE_END:
-                        if(processStrokeEnd()) continue;
+                    case DPBlockDefinition::DP_BLOCK_TRACE_END:
+                        if(processTraceEnd()) continue;
                         break;
-                    case DP_BLOCK_PEN_POSITION:
+                    case DPBlockDefinition::DP_BLOCK_PEN_POSITION:
                         if(processPosition()) continue;
                         break;
-                    case DP_BLOCK_PEN_TILT:
+                    case DPBlockDefinition::DP_BLOCK_PEN_TILT:
                         if(processTilt()) continue;
                         break;
-                    case DP_BLOCK_PEN_PRESSURE:
+                    case DPBlockDefinition::DP_BLOCK_PEN_PRESSURE:
                         if(processPressure()) continue;
                         break;
-                    case DP_BLOCK_CLOCK_COUNTER:
+                    case DPBlockDefinition::DP_BLOCK_CLOCK_COUNTER:
                         if(processClockCounter()) continue;
                         break;
-                    case DP_BLOCK_CLOCK_UNKNOWN:
+                    case DPBlockDefinition::DP_BLOCK_CLOCK_UNKNOWN:
                         if(processClockUnknown()) continue;
                         break;
-                    case DP_BLOCK_CLOCK_INIT:
+                    case DPBlockDefinition::DP_BLOCK_CLOCK_INIT:
                         if(processClockInit()) continue;
                         break;
-                    case DP_BLOCK_C5:
+                    case DPBlockDefinition::DP_BLOCK_C5:
                         if(processC5()) continue;
                         break;
-                    case DP_BLOCK_C7_INTERFERENCE:
+                    case DPBlockDefinition::DP_BLOCK_C7_INTERFERENCE:
                         if(processInterference()) continue;
                         break;
-                    case DP_BLOCK_C7_1E:
-                    case DP_BLOCK_C7_1A:
-                    case DP_BLOCK_C7_16:
-                    case DP_BLOCK_C7_22:
+                    case DPBlockDefinition::DP_BLOCK_C7_1E:
+                    case DPBlockDefinition::DP_BLOCK_C7_1A:
+                    case DPBlockDefinition::DP_BLOCK_C7_16:
+                    case DPBlockDefinition::DP_BLOCK_C7_22:
                         if(processInterference()) continue;
                         break;
                     default:
@@ -465,10 +374,10 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
             }
             else
             {
-                if(lastBlockCode != DP_BLOCK_UNKNOWN)
+                if(lastBlockCode != DPBlockDefinition::DP_BLOCK_UNKNOWN)
                 {
                     DPLogDebug("Unknown BLOCK CODE: " + DPToHex(thisBlockCode));
-                    lastBlockCode = DP_BLOCK_UNKNOWN;
+                    lastBlockCode = DPBlockDefinition::DP_BLOCK_UNKNOWN;
                 }
             }
         }
@@ -479,10 +388,14 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
 
         std::cout << DPToString( (unsigned int) buf[i], 0, 4, ' ');
 
-        i++;
+        ++i; // working our way through ...
     }
-    
-    
+
+    if(currentPoint.isPositionSet())
+    {
+        currentTrace.push_back(currentPoint);
+    }
+
     if(!currentTrace.isEmpty())
     {
         currentLayer.push_back(currentTrace);
@@ -493,10 +406,10 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
         sketch.push_back(currentLayer);
     }
     
-    dumpDebugCounts();
+    DPBlockDefinition::dumpDebugCounts();
     
     std::cout << "--------------DEBUG VALUES--------------" << std::endl;
-    std::cout << "Num Seconds    : " << numSeconds << std::endl;
+    std::cout << "lastTimeStampMillis    : " << lastTimestampMillis << std::endl;
     
     return DP_SUCCESS;
 }

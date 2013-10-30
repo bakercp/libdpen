@@ -44,13 +44,10 @@ public:
     std::vector<DPTraceGroup>& getLayersRef();
     void push_back(const DPTraceGroup& traceGroup);
     void setLayers(const std::vector<DPTraceGroup>& layers);
-    std::string toString();    bool isEmpty() const;
     std::size_t getNumLayers() const;
     std::size_t getNumTraces() const;
     std::size_t getNumPoints() const;
     std::string getSketchStats() const;
-    DPTracePoint* getFirstPoint();
-    DPTracePoint* getLastPoint();
     bool hasPosition() const;
     bool hasX() const;
     bool hasY() const;
@@ -63,7 +60,9 @@ public:
     void addTiltChannel();
     bool addPressureChannel();
     void addTimestampChannel();
-    
+
+    std::string toString();    bool isEmpty() const;
+
 protected:
     DPDefinitions _definitions;
     std::vector<DPTraceGroup> _layers;

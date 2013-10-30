@@ -74,31 +74,6 @@ std::size_t DPTraceGroup::getNumPoints() const
     return numPoints;
 }
 
-DPTracePoint* DPTraceGroup::getFirstPoint()
-{
-    if(_traces.empty())
-    {
-        return 0;
-    }
-    else
-    {
-        return _traces[0].getFirstPoint();
-    }
-}
-
-DPTracePoint* DPTraceGroup::getLastPoint()
-{
-    if(_traces.empty())
-    {
-        return 0;
-    }
-    else
-    {
-        return _traces[_traces.size()-1].getLastPoint();
-    }
-}
-
-
 std::string DPTraceGroup::toString() const
 {
     std::stringstream ss("");

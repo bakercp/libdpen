@@ -190,7 +190,6 @@ public:
     }
     
 protected:
-
     bool _xSet;
     bool _ySet;
     bool _tiltXSet;
