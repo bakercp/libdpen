@@ -34,6 +34,9 @@
 #include "dpen/DPUtils.h"
 
 
+namespace dpen {
+
+
 class DPBlockDefinition
 {
 public:
@@ -155,3 +158,6 @@ protected:
     unsigned int _count;
 
 };
+
+
+} // namespace dpen

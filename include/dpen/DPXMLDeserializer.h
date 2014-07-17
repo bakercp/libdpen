@@ -38,6 +38,9 @@
 #include "dpen/DPSketch.h"
 
 
+namespace dpen {
+
+
 class DPXMLDeserializer
 {
 public:
@@ -294,3 +297,6 @@ protected:
     }
 
 };
+
+
+} // namespace dpen

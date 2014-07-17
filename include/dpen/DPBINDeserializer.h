@@ -26,6 +26,9 @@
 #pragma once
 
 
+namespace dpen {
+
+
 class DPBINDeserializer
 {
 public:
@@ -33,3 +36,6 @@ public:
     virtual ~DPBINDeserializer();
 
 };
+
+
+} // namespace dpen

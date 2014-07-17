@@ -26,6 +26,9 @@
 #include "dpen/DPSketch.h"
 
 
+namespace dpen {
+
+
 DPSketch::DPSketch()
 {
 }
@@ -230,3 +233,6 @@ std::string DPSketch::toString()
 
     return ss.str();
 }
+
+
+} // namespace dpen

@@ -26,6 +26,9 @@
 #include "dpen/DPTraceGroup.h"
 
 
+namespace dpen {
+
+
 DPTraceGroup::DPTraceGroup()
 {
 }
@@ -67,6 +70,7 @@ std::size_t DPTraceGroup::getNumTraces() const
 std::size_t DPTraceGroup::getNumPoints() const
 {
     std::size_t numPoints = 0;
+
     for(std::size_t i = 0; i < getNumTraces(); ++i)
     {
         numPoints += _traces[i].getNumPoints();
@@ -76,7 +80,7 @@ std::size_t DPTraceGroup::getNumPoints() const
 
 std::string DPTraceGroup::toString() const
 {
-    std::stringstream ss("");
+    std::stringstream ss;
 
     for(std::size_t i = 0 ; i < _traces.size(); ++i)
     {
@@ -84,3 +88,6 @@ std::string DPTraceGroup::toString() const
     }
     return ss.str();
 }
+
+
+} // namespace dpen

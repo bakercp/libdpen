@@ -31,6 +31,9 @@
 #include "dpen/DPContext.h"
 
 
+namespace dpen {
+
+
 class DPDefinitions
 {
 public:
@@ -83,3 +86,6 @@ protected:
     DPContext _contextReference;
 
 };
+
+
+} // namespace dpen

@@ -30,6 +30,9 @@
 #include "dpen/DPTracePoint.h"
 
 
+namespace dpen {
+
+
 class DPTrace
 {
 public:
@@ -63,3 +66,6 @@ protected:
     std::vector<DPTracePoint> _points;
 
 };
+
+
+} // namespace dpen

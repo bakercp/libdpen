@@ -26,6 +26,8 @@
 #include "dpen/DPBlockDefinition.h"
 
 
+namespace dpen {
+
 
 std::map<DPBlockDefinition::BlockCode,DPBlockDefinition> create_map()
 {
@@ -153,3 +155,4 @@ bool DPBlockDefinition::getELIBlockDef(const DPBlockDefinition::BlockCode& code,
 }
 
 
+} // namespace dpen

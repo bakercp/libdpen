@@ -30,6 +30,9 @@
 #include <string>
 
 
+namespace dpen {
+
+
 template <typename T> 
 class DPChannel
 {
@@ -140,3 +143,6 @@ typedef DPChannel<int>              DPSIntChannel;
 typedef DPChannel<unsigned int>     DPUIntChannel;
 typedef DPChannel<float>            DPFloatChannel;
 typedef DPChannel<double>           DPDoubleChannel;
+
+
+} // namespace dpen

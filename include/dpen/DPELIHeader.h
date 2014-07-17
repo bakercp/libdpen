@@ -29,6 +29,9 @@
 #include <string>
 
 
+namespace dpen {
+
+
 class DPELIHeader
 {
 public:
@@ -54,3 +57,6 @@ private:
     unsigned long long _samplingFrequency;
 
 };
+
+
+} // namespace dpen

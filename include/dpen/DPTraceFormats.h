@@ -31,6 +31,9 @@
 #include "dpen/DPChannel.h"
 
 
+namespace dpen {
+
+
 class DPTraceFormats
 {
 public:
@@ -121,3 +124,6 @@ protected:
     std::vector<DPFloatChannel> _channels;
     
 };
+
+
+} // namespace dpen

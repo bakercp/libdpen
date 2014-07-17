@@ -30,6 +30,9 @@
 #include <iostream>
 
 
+namespace dpen {
+
+
 class DPTracePoint
 {
 public:
@@ -208,3 +211,6 @@ protected:
     float _timestamp;
     
 };
+
+
+} // namespace dpen

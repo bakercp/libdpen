@@ -33,6 +33,9 @@
 #include "dpen/DPTraceGroup.h"
 
 
+namespace dpen {
+
+
 class DPSketch
 {
 public:
@@ -68,3 +71,6 @@ protected:
     std::vector<DPTraceGroup> _layers;
 
 };
+
+
+} // namespace dpen

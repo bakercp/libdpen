@@ -34,6 +34,9 @@
 #include <vector>
 
 
+namespace dpen {
+
+
 short readShort(std::vector<unsigned char>& buf, unsigned int& i);
 unsigned short readUShort(std::vector<unsigned char>& buf, unsigned int& i);
 unsigned char readUChar(std::vector<unsigned char>& buf, unsigned int& i);
@@ -101,3 +104,6 @@ std::vector<std::string> DPSplit(const std::string &s,
 
 bool DPStringEndsWith(std::string const &fullString,
                       std::string const &ending);
+
+
+} // namespace dpen

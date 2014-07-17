@@ -27,6 +27,9 @@
 #include "dpen/DPUtils.h"
 
 
+namespace dpen {
+
+
 DPDeserializer::DPDeserializer():
     hasInterference(false),
     interferenceValueMajor(0),
@@ -413,3 +416,6 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
     
     return DP_SUCCESS;
 }
+
+
+} // namespace dpen

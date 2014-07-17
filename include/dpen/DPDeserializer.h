@@ -37,6 +37,9 @@
 #include "dpen/DPBlockDefinition.h"
 
 
+namespace dpen {
+
+
 class DPDeserializer
 {
 public:
@@ -95,3 +98,6 @@ protected:
     unsigned int i; // current position
 
 };
+
+
+} // namespace dpen

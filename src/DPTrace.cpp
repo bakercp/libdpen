@@ -25,6 +25,10 @@
 
 #include "dpen/DPTrace.h"
 
+
+namespace dpen {
+
+
 DPTrace::DPTrace(unsigned long long startTimeMillis): _startTimeMillis(startTimeMillis)
 {
 }
@@ -94,3 +98,5 @@ std::string DPTrace::toString() const
     return ss.str();
 }
 
+
+} // namespace dpen

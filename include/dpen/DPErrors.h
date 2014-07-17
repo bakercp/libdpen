@@ -31,6 +31,10 @@
 #include "dpen/DPUtils.h"
 
 
+
+namespace dpen {
+
+
 static bool LOG_DEBUG = true;
 static bool HEX_DEBUG = true;
 
@@ -108,3 +112,6 @@ inline void DPLogDebug(const std::string& verbose)
         std::cout << "Debug: " << verbose << std::endl;
     }
 }
+
+
+} // namespace dpen

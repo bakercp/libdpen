@@ -28,6 +28,9 @@
 #include <cstring>
 
 
+namespace dpen {
+
+
 short readShort(std::vector<unsigned char>& buf, unsigned int& i)
 {
     short out = 0;
@@ -217,3 +220,6 @@ bool DPStringEndsWith(std::string const &fullString, std::string const &ending)
         return false;
     }
 }
+
+
+} // namespace dpen

@@ -29,6 +29,9 @@
 #include <sstream>
 
 
+namespace dpen {
+
+
 class DPContext
 {
 public:
@@ -79,3 +82,6 @@ protected:
     std::string _id;
 
 };
+
+
+} // namespace dpen

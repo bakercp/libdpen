@@ -31,6 +31,9 @@
 #include "dpen/DPTrace.h"
 
 
+namespace dpen {
+
+
 class DPTraceGroup
 {
 public:
@@ -52,3 +55,6 @@ protected:
     std::vector<DPTrace> _traces;
 
 };
+
+
+} // namespace dpen
