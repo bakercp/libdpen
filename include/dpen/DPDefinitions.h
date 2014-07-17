@@ -55,7 +55,6 @@ public:
         return _traceFormats;
     }
 
-
     void setTraceFormat(const DPTraceFormats& traceFormats)
     {
         _traceFormats = traceFormats;

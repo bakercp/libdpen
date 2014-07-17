@@ -148,8 +148,11 @@ bool DPBlockDefinition::getELIBlockDef(const DPBlockDefinition::BlockCode& code,
     if(iter != blockEventMap.end())
     {
         def = (*iter).second;
+        
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }

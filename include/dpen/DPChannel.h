@@ -69,10 +69,12 @@ DPChannel<T>::DPChannel()
 {
 }
 
+
 template <class T>
 DPChannel<T>::~DPChannel()
 {
 }
+
 
 template <class T>
 std::string DPChannel<T>::getName() const
@@ -80,16 +82,19 @@ std::string DPChannel<T>::getName() const
     return _name;
 }
 
+
 template <class T>
 void DPChannel<T>::setName(const std::string& name)
 {
     _name = name;
 }
 
+
 template <class T> std::string DPChannel<T>::getUnits() const
 {
     return _units;
 }
+
 
 template <class T>
 void DPChannel<T>::setUnits(const std::string& units)
@@ -97,11 +102,13 @@ void DPChannel<T>::setUnits(const std::string& units)
     _units = units;
 }
 
+
 template <class T>
 T DPChannel<T>::getMin() const
 {
     return _min;
 }
+
 
 template <class T>
 void DPChannel<T>::setMin(const T& min)
@@ -109,17 +116,20 @@ void DPChannel<T>::setMin(const T& min)
     _min = min;
 }
 
+
 template <class T>
 T DPChannel<T>::getMax() const
 {
     return _max;
 }
 
+
 template <class T>
 void DPChannel<T>::setMax(const T& max)
 {
     _max = max;
 }
+
 
 template <class T>
 std::string DPChannel<T>::toString() const
