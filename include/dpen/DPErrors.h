@@ -49,7 +49,7 @@ enum DPError
 };
 
 
-inline std::string DPErrorToString(DPError& error)
+inline std::string DPErrorToString(const DPError& error)
 {
     switch (error)
     {
@@ -97,13 +97,15 @@ inline void DPLogBlock(const std::string& prefix,
 // logging utilities
 inline void DPLogError(const std::string& error)
 {
-    std::cout << "Error: " << error << std::endl;
+    std::cerr << "Error: " << error << std::endl;
 }
+
 
 inline void DPLogWarning(const std::string& warning)
 {
     std::cout << "Warning: " << warning << std::endl;
 }
+
 
 inline void DPLogDebug(const std::string& verbose)
 {
