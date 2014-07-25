@@ -39,6 +39,7 @@ short readShort(std::vector<unsigned char>& buf, unsigned int& i)
     return out;
 }
 
+
 unsigned short readUShort(std::vector<unsigned char>& buf, unsigned int& i)
 {
     unsigned short out = 0;
@@ -47,15 +48,18 @@ unsigned short readUShort(std::vector<unsigned char>& buf, unsigned int& i)
     return out;
 }
 
+
 unsigned char readUChar(std::vector<unsigned char>& buf, unsigned int& i)
 {
     return buf[i++];
 }
 
+
 char readChar(std::vector<unsigned char>& buf, unsigned int& i)
 {
     return buf[i++];
 }
+
 
 bool DPReadBinaryFile(const std::string& path, std::vector<unsigned char>& buffer)
 {
@@ -125,13 +129,14 @@ short int DPStringToShortInt(const std::string& shortString)
 //}
 //
 
+
 template <>
 inline std::string DPToHex(const std::string& value)
 {
 	std::ostringstream out;
 	// how many bytes are in the string
     std::size_t numBytes = value.size();
-	for(std::size_t i = 0; i < numBytes; i++)
+	for (std::size_t i = 0; i < numBytes; i++)
     {
 		// print each byte as a 2-character wide hex value
 		out << std::setfill('0') << std::setw(2) << std::hex << (unsigned int) value[i];
@@ -146,14 +151,13 @@ std::string DPToHex(const char* value)
 	return DPToHex((std::string) value);
 }
 
-// sring operations
 
 bool DPIsMatch(const char* name0, const char* name1)
 {
     return strcmp(name0, name1) == 0;
 }
 
-// trim from start
+
 std::string& DPLTrim(std::string& s)
 {
     s.erase(s.begin(),
@@ -163,7 +167,7 @@ std::string& DPLTrim(std::string& s)
     return s;
 }
 
-// trim from end
+
 std::string& DPRTrim(std::string &s)
 {
     s.erase(std::find_if(s.rbegin(),
@@ -173,11 +177,12 @@ std::string& DPRTrim(std::string &s)
     return s;
 }
 
-// trim from both ends
+
 std::string& DPTrim(std::string &s)
 {
     return DPLTrim(DPRTrim(s));
 }
+
 
 std::vector<std::string>& DPSplit(const std::string& s,
                                   char delim,
@@ -193,6 +198,7 @@ std::vector<std::string>& DPSplit(const std::string& s,
     return elems;
 }
 
+
 std::vector<std::string> DPSplit(const std::string &s,
                                  char delim,
                                  bool trim)
@@ -200,6 +206,7 @@ std::vector<std::string> DPSplit(const std::string &s,
     std::vector<std::string> elems;
     return DPSplit(s, delim, elems);
 }
+
 
 bool DPStringEndsWith(std::string const &fullString, std::string const &ending)
 {

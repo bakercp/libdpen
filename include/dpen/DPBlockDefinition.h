@@ -71,13 +71,13 @@ public:
                       BlockCode blockCode,
                       std::string name,
                       bool debug):
-    _blockStart(blockStart),
-    _blockLength(blockLength),
-    _blockId(blockId),
-    _blockIdMustMatch(blockIdMustMatch),
-    _blockCode(blockCode),
-    _name(name),
-    _debug(debug)
+        _blockStart(blockStart),
+        _blockLength(blockLength),
+        _blockId(blockId),
+        _blockIdMustMatch(blockIdMustMatch),
+        _blockCode(blockCode),
+        _name(name),
+        _debug(debug)
     {
     }
 

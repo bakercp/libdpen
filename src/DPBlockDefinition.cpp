@@ -64,18 +64,19 @@ bool DPBlockDefinition::dumpDebugCounts()
     std::map<DPBlockDefinition::BlockCode,DPBlockDefinition>::const_iterator iter = DPBlockDefinition::blockEventMap.begin();
 
     std::cout << "--------------DEBUG COUNTS--------------" << std::endl;
-    while(iter != blockEventMap.end())
+    while (iter != blockEventMap.end())
     {
         std::cout << (*iter).second.getName() << " " << (*iter).second.getCount() << std::endl;
         ++iter;
     }
 }
 
+
 bool DPBlockDefinition::resetDebugCounts()
 {
     std::map<DPBlockDefinition::BlockCode,DPBlockDefinition>::iterator iter = DPBlockDefinition::blockEventMap.begin();
 
-    while(iter != blockEventMap.end())
+    while (iter != blockEventMap.end())
     {
         (*iter).second.resetCount();
         ++iter;
@@ -89,7 +90,7 @@ bool DPBlockDefinition::matchEventBlock(std::vector<unsigned char>& buf,
     std::size_t bufRemaining = buf.size() - i;
     blockCode = DPBlockDefinition::DP_BLOCK_UNKNOWN;
 
-    if(bufRemaining <= 0)
+    if (bufRemaining <= 0)
     {
         DPLogError("Trying to read, but buffer empty.");
         return false;
@@ -133,6 +134,7 @@ bool DPBlockDefinition::matchEventBlock(std::vector<unsigned char>& buf,
             }
         }
     }
+
     return true;
 }
 
@@ -141,11 +143,12 @@ bool DPBlockDefinition::hasBlockCode(const DPBlockDefinition::BlockCode& code)
     return blockEventMap.find(code) != DPBlockDefinition::blockEventMap.end();
 }
 
-bool DPBlockDefinition::getELIBlockDef(const DPBlockDefinition::BlockCode& code, DPBlockDefinition& def)
+bool DPBlockDefinition::getELIBlockDef(const DPBlockDefinition::BlockCode& code,
+                                       DPBlockDefinition& def)
 {
     std::map<DPBlockDefinition::BlockCode,DPBlockDefinition>::iterator iter = blockEventMap.find(code);
 
-    if(iter != blockEventMap.end())
+    if (iter != blockEventMap.end())
     {
         def = (*iter).second;
         

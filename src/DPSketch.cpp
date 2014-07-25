@@ -33,44 +33,53 @@ DPSketch::DPSketch()
 {
 }
 
+
 DPSketch::~DPSketch()
 {
 }
+
 
 DPDefinitions& DPSketch::getDefinitionsRef()
 {
     return _definitions;
 }
 
+
 void DPSketch::setDefinitions(const DPDefinitions& definitions)
 {
     _definitions = definitions;
 }
+
 
 std::vector<DPTraceGroup>& DPSketch::getLayersRef()
 {
     return _layers;
 }
 
+
 void DPSketch::push_back(const DPTraceGroup& traceGroup)
 {
     _layers.push_back(traceGroup);
 }
+
 
 void DPSketch::setLayers(const std::vector<DPTraceGroup>& layers)
 {
     _layers = layers;
 }
 
+
 bool DPSketch::isEmpty() const
 {
     return _layers.empty();
 }
 
+
 std::size_t DPSketch::getNumLayers() const
 {
     return _layers.size();
 }
+
 
 std::size_t DPSketch::getNumTraces() const
 {
@@ -82,6 +91,7 @@ std::size_t DPSketch::getNumTraces() const
     return numTraces;
 }
 
+
 std::size_t DPSketch::getNumPoints() const
 {
     std::size_t numPoints = 0;
@@ -91,6 +101,7 @@ std::size_t DPSketch::getNumPoints() const
     }
     return numPoints;
 }
+
 
 std::string DPSketch::getSketchStats() const
 {
@@ -104,45 +115,54 @@ std::string DPSketch::getSketchStats() const
     return ss.str();
 }
 
+
 bool DPSketch::hasPosition() const
 {
     return hasX() && hasY();
 }
+
 
 bool DPSketch::hasX() const
 {
     return _definitions.getTraceFormatsRef().hasChannelNamed("x");
 }
 
+
 bool DPSketch::hasY() const
 {
     return _definitions.getTraceFormatsRef().hasChannelNamed("y");
 }
+
 
 bool DPSketch::hasTilt() const
 {
     return hasTiltX() && hasTiltY();
 }
 
+
 bool DPSketch::hasTiltX() const
 {
     return _definitions.getTraceFormatsRef().hasChannelNamed("xtilt");
 }
+
 
 bool DPSketch::hasTiltY() const
 {
     return _definitions.getTraceFormatsRef().hasChannelNamed("xtilt");
 }
 
+
 bool DPSketch::hasPressure() const
 {
     return _definitions.getTraceFormatsRef().hasChannelNamed("pressure");
 }
 
+
 bool DPSketch::hasTimestamp() const
 {
     return _definitions.getTraceFormatsRef().hasChannelNamed("timestamp");
 }
+
 
 void DPSketch::addPositionChannel()
 {
@@ -167,6 +187,7 @@ void DPSketch::addPositionChannel()
 
 }
 
+
 void DPSketch::addTiltChannel()
 {
     if(hasTilt())
@@ -189,6 +210,7 @@ void DPSketch::addTiltChannel()
     _definitions.getTraceFormatsRef().addChannel(yChan);
 }
 
+
 bool DPSketch::addPressureChannel()
 {
     if(hasPressure())
@@ -206,12 +228,14 @@ bool DPSketch::addPressureChannel()
   return true;
 }
 
+
 void DPSketch::addTimestampChannel()
 {
     if(hasTimestamp())
     {
         return;
     }
+
     DPFloatChannel timestampChan;
     timestampChan.setName("timestamp");
     timestampChan.setUnits("0.0067sec");
@@ -220,11 +244,14 @@ void DPSketch::addTimestampChannel()
     _definitions.getTraceFormatsRef().addChannel(timestampChan);
 }
 
-std::string DPSketch::toString()
+
+std::string DPSketch::toString() const
 {
     std::stringstream ss;
+
     ss << "[DPSKETCH" << std::endl;
     ss << _definitions.toString() << std::endl;
+
     for(std::size_t i = 0; i < _layers.size(); ++i)
     {
         ss << _layers[i].toString() << std::endl;

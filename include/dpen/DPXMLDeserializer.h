@@ -57,9 +57,9 @@ public:
                 return DP_ERROR_INVALID_XML;
             }
 
-            for(TiXmlElement* elem = root->FirstChildElement(); elem != 0; elem = elem->NextSiblingElement())
+            for (TiXmlElement* elem = root->FirstChildElement(); elem != 0; elem = elem->NextSiblingElement())
             {
-                if(!isValidNode(elem))
+                if (!isValidNode(elem))
                 {
                     DPLogWarning("invalid node found");
                     continue;
@@ -68,18 +68,18 @@ public:
                 {
                     DPDefinitions defs;
                     DPError err = parseXMLDefinitions(elem, defs);
-                    if(err)
+                    if (err)
                     {
                         DPLogError("Error in deserializeWACCompatible() while parseXMLDefinitions()" + DPErrorToString(err));
                         return err;
                     }
                     sketch.setDefinitions(defs);
                 }
-                else if(DPIsMatch(elem->Value(),"tracegroup"))
+                else if (DPIsMatch(elem->Value(),"tracegroup"))
                 {
                     DPTraceGroup tg;
                     DPError err = parseXMLTraceGroup(elem, tg);
-                    if(err)
+                    if (err)
                     {
                         DPLogError("Error in deserializeWACCompatible() while parseXMLDefinitions()" + DPErrorToString(err));
                         return err;
@@ -103,15 +103,15 @@ public:
     {
         tf.setId(getStringAttr(node, "id")); // set the id
 
-        for(TiXmlElement* elem = node->FirstChildElement();
-            0 != elem; elem = elem->NextSiblingElement())
+        for (TiXmlElement* elem = node->FirstChildElement();
+             0 != elem; elem = elem->NextSiblingElement())
         {
-            if(!isValidNode(elem))
+            if (!isValidNode(elem))
             {
                 DPLogWarning("invalid node found");
                 continue;
             }
-            else if(DPIsMatch(elem->Value(),"channel"))
+            else if (DPIsMatch(elem->Value(),"channel"))
             {
                 DPFloatChannel channel;
                 channel.setName(getStringAttr(elem, "name"));
@@ -130,16 +130,16 @@ public:
 
     static DPError parseXMLTraceGroup(TiXmlElement* node, DPTraceGroup& defs)
     {
-        for(TiXmlElement* elem = node->FirstChildElement();
-            0 != elem;
-            elem = elem->NextSiblingElement())
+        for (TiXmlElement* elem = node->FirstChildElement();
+             0 != elem;
+             elem = elem->NextSiblingElement())
         {
-            if(!isValidNode(elem))
+            if (!isValidNode(elem))
             {
                 DPLogWarning("invalid node found");
                 continue;
             }
-            else if(DPIsMatch(elem->Value(),"trace"))
+            else if (DPIsMatch(elem->Value(),"trace"))
             {
                 // TODO: estimate trace start time based on number of samples before
                 DPTrace trace;
@@ -147,17 +147,17 @@ public:
                 
                 // get the texst
                 TiXmlNode* child = elem->FirstChild();
-                if(child != NULL && child->Type() == TiXmlNode::TEXT)
+                if (child != NULL && child->Type() == TiXmlNode::TEXT)
                 {
                     std::vector<std::string> tokens;
                     DPSplit(child->ToText()->Value(), ',', tokens);
-                    for(std::size_t i = 0; i < tokens.size(); ++i)
+                    for (std::size_t i = 0; i < tokens.size(); ++i)
                     {
                         std::vector<std::string> valueTokens;
                         DPSplit(tokens[i], ' ', valueTokens);
                         
                         // TODO: this should match up w/ channels
-                        if(valueTokens.size() == 7)
+                        if (valueTokens.size() == 7)
                         {
                             float x         = DPStringToFloat(valueTokens[0]);
                             float y         = DPStringToFloat(valueTokens[1]);
@@ -183,7 +183,7 @@ public:
                     DPLogWarning("found an empty trace " + DPStringToString(elem->Value()));
                 }
                 
-                if(trace.getPointsRef().size() > 0)
+                if (trace.getPointsRef().size() > 0)
                 {
                     defs.getTracesRef().push_back(trace); // add the trace
                 }
@@ -206,16 +206,16 @@ public:
         bool isTraceFormatSet = false;
         bool isContextSet = false;
         
-        for(TiXmlElement* elem = node->FirstChildElement();
+        for (TiXmlElement* elem = node->FirstChildElement();
             0 != elem;
             elem = elem->NextSiblingElement())
         {
-            if(!isValidNode(elem))
+            if (!isValidNode(elem))
             {
                 DPLogWarning("invalid node found");
                 continue;
             }
-            else if(DPIsMatch(elem->Value(),"traceFormat"))
+            else if (DPIsMatch(elem->Value(),"traceFormat"))
             {
                 DPTraceFormats tf;
                 DPError err = parseXMLTraceFormats(elem,tf);
@@ -226,7 +226,7 @@ public:
                     return err;
                 }
 
-                if(isTraceFormatSet)
+                if (isTraceFormatSet)
                 {
                     DPLogWarning("found multiple trace formats");
                 }
@@ -234,7 +234,7 @@ public:
                 isTraceFormatSet = true;
                 defs.setTraceFormat(tf);
             }
-            else if(DPIsMatch(elem->Value(), "context"))
+            else if (DPIsMatch(elem->Value(), "context"))
             {
                 DPContext context;
                 context.setId(getStringAttr(elem, "id"));
@@ -251,6 +251,7 @@ public:
                 DPLogWarning("found an unknown element " + DPStringToString(elem->Value()));
             }
         }
+
         return DP_SUCCESS;
     }
     

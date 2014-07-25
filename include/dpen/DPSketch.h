@@ -64,7 +64,8 @@ public:
     bool addPressureChannel();
     void addTimestampChannel();
 
-    std::string toString();    bool isEmpty() const;
+    std::string toString() const;
+    bool isEmpty() const;
 
 protected:
     DPDefinitions _definitions;
