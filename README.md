@@ -15,3 +15,8 @@ This library allows an alternative to commercial readers such as Wacom's Sketch 
 Also, this is related:
 
 http://www.useful-tools.de/EN-WPI-Format-Downloads.html
+
+
+## Alternatives
+
+If you are interested in an open source alternative to the Wacom Sketch Manager, please try out https://github.com/roelj/inklingreader.
