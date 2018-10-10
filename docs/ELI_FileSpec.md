@@ -3,7 +3,7 @@ _The .ELI/.WPI binary format is a serialized binary format representing pen data
 
 _This specification is unofficial, incomplete, in progress and the result of trial and error, a hex editor, and a handful of .WPI files carefully generated with the Wacom Inkling._
 
-_Christopher Baker <http://christopherbaker.net>_
+_Christopher Baker <https://christopherbaker.net>_
 
 #Equipment
 ##Wacom Inkling
