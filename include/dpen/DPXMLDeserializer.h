@@ -33,7 +33,7 @@ public:
 
         if (doc.LoadFile())
         {
-            TiXmlElement* root = doc.FirstChildElement(); 
+            TiXmlElement* root = doc.FirstChildElement();
             if(!isValidXMLNodeWithName(root, "ink"))
             {
                 return DP_ERROR_INVALID_XML;
@@ -80,7 +80,7 @@ public:
             return DP_ERROR_UNABLE_TO_LOAD_FROM_DISK;
         }
     }
-    
+
     static DPError parseXMLTraceFormats(TiXmlElement* node, DPTraceFormats& tf)
     {
         tf.setId(getStringAttr(node, "id")); // set the id
@@ -126,7 +126,7 @@ public:
                 // TODO: estimate trace start time based on number of samples before
                 DPTrace trace;
                 trace.setContext(getStringAttr(elem, "contextRef"));
-                
+
                 // get the texst
                 TiXmlNode* child = elem->FirstChild();
                 if (child != NULL && child->Type() == TiXmlNode::TEXT)
@@ -137,7 +137,7 @@ public:
                     {
                         std::vector<std::string> valueTokens;
                         DPSplit(tokens[i], ' ', valueTokens);
-                        
+
                         // TODO: this should match up w/ channels
                         if (valueTokens.size() == 7)
                         {
@@ -147,12 +147,12 @@ public:
                             float tiltX     = DPStringToFloat(valueTokens[4]);
                             float tiltY     = DPStringToFloat(valueTokens[5]);
                             float timestamp = DPStringToFloat(valueTokens[6]);
-                            
+
                             DPTracePoint point(x,y,tiltX,tiltY,pressure,timestamp);
-                            
+
                             // add trace
                             trace.getPointsRef().push_back(point);
-                            
+
                         }
                         else
                         {
@@ -164,7 +164,7 @@ public:
                 {
                     DPLogWarning("found an empty trace " + DPStringToString(elem->Value()));
                 }
-                
+
                 if (trace.getPointsRef().size() > 0)
                 {
                     defs.getTracesRef().push_back(trace); // add the trace
@@ -182,12 +182,12 @@ public:
 
         return DP_SUCCESS;
     }
-    
+
     static DPError parseXMLDefinitions(TiXmlElement* node, DPDefinitions& defs)
     {
         bool isTraceFormatSet = false;
         bool isContextSet = false;
-        
+
         for (TiXmlElement* elem = node->FirstChildElement();
             0 != elem;
             elem = elem->NextSiblingElement())
@@ -236,13 +236,13 @@ public:
 
         return DP_SUCCESS;
     }
-    
+
 protected:
     static bool isValidXMLNodeWithName(TiXmlElement* element, const char* name)
     {
         return isValidNode(element) && DPIsMatch(element->Value(), name);
     }
-    
+
     static bool isValidNode(TiXmlElement* element)
     {
         return 0 != element;
@@ -254,7 +254,7 @@ protected:
         TiXmlText* text = elem->ToText();
         return 0 == text? defaultValue : text->Value();
     }
-    
+
     static std::string getStringAttr(TiXmlElement* elem,
                                      const std::string& name,
                                      std::string defaultValue = "")
@@ -262,7 +262,7 @@ protected:
         const char* tag = elem->Attribute(name.c_str());
         return 0 != tag ? tag : defaultValue;
     }
-    
+
     static float getFloatAttr(TiXmlElement* elem,
                               const std::string& name,
                               float defaultValue = 0)
@@ -270,7 +270,7 @@ protected:
         const char* tag = elem->Attribute(name.c_str());
         return 0 != tag ? DPStringToFloat(tag) : defaultValue;
     }
-    
+
     static short int getShortAttr(TiXmlElement* elem,
                                   const std::string& name,
                                   short int defaultValue = 0)

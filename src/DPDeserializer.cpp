@@ -72,7 +72,7 @@ DPError DPDeserializer::processHeader()
     //
     //
     //    }
-    
+
     return DP_SUCCESS;
 }
 
@@ -179,7 +179,7 @@ bool DPDeserializer::processLayerStart()
         sketch.push_back(currentLayer);
         currentLayer.clear();
     }
-    
+
     return true;
 }
 
@@ -240,10 +240,10 @@ bool DPDeserializer::processInterference()
     if(readChar(buf, i) != 0) DPLogWarning("Var on interference 5");
     if(readChar(buf, i) != 0) DPLogWarning("Var on interference 6");
     if(readChar(buf, i) != 0) DPLogWarning("Var on interference 7");
-    
+
     int _interferenceValueMinor = readUChar(buf, i);
     int _interferenceValueMajor = readUChar(buf, i);
-    
+
     if(_interferenceValueMinor != (interferenceValueMinor + 2))
     {
     //    DPLogWarning("XXX - Interference Val Minor Dev");
@@ -252,10 +252,10 @@ bool DPDeserializer::processInterference()
     {
     //    DPLogWarning("XXX - Interference Val Major Dev");
     }
-    
+
     interferenceValueMinor = _interferenceValueMinor;
     interferenceValueMajor = _interferenceValueMajor;
-    
+
     if(0 != readChar(buf, i))
     {
         DPLogWarning("Var on interference 8");
@@ -285,10 +285,10 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
     }
 
     DPBlockDefinition::resetDebugCounts(); // reset debug counts
-    
+
     // start moving through the data
     std::size_t n = buf.size();
-    
+
     hasInterference = false;
     interferenceValueMajor = 0;
     interferenceValueMinor = 0;
@@ -385,17 +385,17 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
     {
         currentLayer.push_back(currentTrace);
     }
-    
+
     if(!currentLayer.isEmpty())
     {
         sketch.push_back(currentLayer);
     }
-    
+
     DPBlockDefinition::dumpDebugCounts();
-    
+
     std::cout << "--------------DEBUG VALUES--------------" << std::endl;
     std::cout << "lastTimeStampMillis    : " << lastTimestampMillis << std::endl;
-    
+
     return DP_SUCCESS;
 }
 

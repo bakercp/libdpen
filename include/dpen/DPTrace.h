@@ -31,7 +31,7 @@ public:
     void clear();
 
     void push_back(const DPTracePoint& pnt);
-    
+
     std::vector<DPTracePoint>& getPointsRef();
 
     std::size_t getNumPoints() const;

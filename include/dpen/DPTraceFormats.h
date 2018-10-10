@@ -19,7 +19,7 @@ namespace dpen {
 class DPTraceFormats
 {
 public:
-    
+
     DPTraceFormats(): _id("")
     {
     }
@@ -27,7 +27,7 @@ public:
     DPTraceFormats(const std::string& id): _id(id)
     {
     }
-    
+
     virtual ~DPTraceFormats()
     {
     }
@@ -36,17 +36,17 @@ public:
     {
         return _id;
     }
-    
+
     void setId(const std::string& id)
     {
         _id = id;
     }
-    
+
     std::vector<DPFloatChannel>& getChannelsRef()
     {
         return _channels;
     }
-    
+
     void addChannel(DPFloatChannel channel)
     {
         if(!hasChannelNamed(channel.getName()))
@@ -58,12 +58,12 @@ public:
             DPLogError("Adding channel called " + channel.getName() + ": Already have one.");
         }
     }
-    
+
     void setChannels(const std::vector<DPFloatChannel>& channels)
     {
         _channels = channels;
     }
-    
+
     bool hasChannelNamed(const std::string& name) const
     {
         for(std::size_t i = 0; i < _channels.size(); ++i)
@@ -88,7 +88,7 @@ public:
         return 0;
     }
 
-    
+
     std::string toString() const
     {
         std::stringstream ss;
@@ -100,11 +100,11 @@ public:
         ss << "]" << std::endl;
         return ss.str();
     }
-    
+
 protected:
     std::string _id;
     std::vector<DPFloatChannel> _channels;
-    
+
 };
 
 

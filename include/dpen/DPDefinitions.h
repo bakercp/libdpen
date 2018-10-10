@@ -26,7 +26,7 @@ public:
     virtual ~DPDefinitions()
     {
     }
-    
+
     DPTraceFormats& getTraceFormatsRef()
     {
         return _traceFormats;
@@ -41,17 +41,17 @@ public:
     {
         _traceFormats = traceFormats;
     }
-    
+
     DPContext getContextReference() const
     {
         return _contextReference;
     }
-    
+
     void setContextReference(const DPContext& contextReference)
     {
         _contextReference = contextReference;
     }
-    
+
     std::string toString() const
     {
         std::stringstream ss;
@@ -61,7 +61,7 @@ public:
         ss << "]" << std::endl;
         return ss.str();
     }
-    
+
 protected:
     DPTraceFormats _traceFormats;
     DPContext _contextReference;

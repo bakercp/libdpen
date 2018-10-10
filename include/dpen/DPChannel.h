@@ -15,7 +15,7 @@
 namespace dpen {
 
 
-template <typename T> 
+template <typename T>
 class DPChannel
 {
 public:
@@ -27,7 +27,7 @@ public:
 
     std::string getUnits() const;
     void setUnits(const std::string& units);
-    
+
     T getMin() const;
     void setMin(const T& min);
 
@@ -35,7 +35,7 @@ public:
     void setMax(const T& max);
 
     std::string toString() const;
-    
+
 protected:
     std::string _name;
     std::string _units;

@@ -32,7 +32,7 @@ public:
     std::size_t getNumPoints() const;
 
     std::string toString() const;
-    
+
 protected:
     std::vector<DPTrace> _traces;
 

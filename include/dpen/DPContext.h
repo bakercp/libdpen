@@ -20,7 +20,7 @@ public:
     DPContext(): _id(""), _traceFormatReference("")
     {
     }
-    
+
     DPContext(const std::string& id,
               const std::string& traceFormatReference):
         _id(id),
@@ -31,12 +31,12 @@ public:
     virtual ~DPContext()
     {
     }
-    
+
     std::string getTraceFormatReference() const
     {
         return _traceFormatReference;
     }
-    
+
     void setTraceFormatRef(const std::string& traceFormatReference)
     {
         _traceFormatReference = traceFormatReference;
@@ -46,19 +46,19 @@ public:
     {
         return _id;
     }
-    
+
     void setId(const std::string& id)
     {
         _id = id;
     }
-    
+
     std::string toString() const
     {
         std::stringstream ss;
         ss << "[Context id=" << _id << " traceFormatRef=" << _traceFormatReference << "]";
         return ss.str();
     }
-    
+
 protected:
     std::string _traceFormatReference;
     std::string _id;

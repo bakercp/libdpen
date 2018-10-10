@@ -144,7 +144,7 @@ Pressure is encoded as a two byte `unsigned short` value.  Pressure values range
 ```c++
 unsigned char  buffer[] = { 0x64, 0x06, 0x00, 0x00, 0x00, 0xAD };
 unsigned int   i = 0;
-unsigned short pressure = (buffer[i+4] << 8) | (buffer[i+5]); // get pressure 
+unsigned short pressure = (buffer[i+4] << 8) | (buffer[i+5]); // get pressure
 ```
 
 ###Notes
@@ -277,9 +277,9 @@ e.g.
 
 #Footnotes
 * test <a id="dcc"></a>dcc
-* <a id="*">\*</a> : 
+* <a id="*">\*</a> :
 * <a id="**">\**</a> : -
-* <a id="†">†</a> : 
+* <a id="†">†</a> :
 * <a id="dc">‡</a> : Typical Value - could take other values, but no other values have been observed.
 * <a id="§">§</a> : -
 * <a id="Incomplete">Incomplete</a> : Incomplete - more data needed.

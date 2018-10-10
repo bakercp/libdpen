@@ -30,22 +30,22 @@ public:
 
     DPError deserialize(const std::string& filename, DPSketch& _sketch);
     DPError deserializeELICompatible(const std::string& filename);
- 
+
     DPError processHeader();
-    
+
     bool processClockCounter();
     bool processClockInit();
     bool processClockUnknown();
-    
+
     bool processPosition();
     bool processTilt();
     bool processPressure();
     bool processLayerStart();
     bool processTraceStart();
     bool processTraceEnd();
-    
+
     bool processC5();
-    
+
     bool processC7();
     bool processInterference();
 

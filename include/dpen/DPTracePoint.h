@@ -58,7 +58,7 @@ public:
     virtual ~DPTracePoint()
     {
     }
-    
+
     float getX() const
     {
         return _x;
@@ -69,7 +69,7 @@ public:
         _x = x;
         _xSet = true;
     }
-    
+
     float getY() const
     {
         return _y;
@@ -123,7 +123,7 @@ public:
         _timestamp = timestamp;
         _timestampSet = true;
     }
- 
+
     std::string toString() const
     {
         std::stringstream ss;
@@ -164,7 +164,7 @@ public:
         _tiltY = 0;
         _pressure = 0;
         _timestamp = 0;
-        
+
         // sets
         _xSet         = false;
         _ySet         = false;
@@ -173,7 +173,7 @@ public:
         _pressureSet  = false;
         _timestampSet = false;
     }
-    
+
 protected:
     bool _xSet;
     bool _ySet;
@@ -181,17 +181,17 @@ protected:
     bool _tiltYSet;
     bool _pressureSet;
     bool _timestampSet;
-    
+
     float _x;
     float _y;
-    
+
     float _tiltX;
     float _tiltY;
 
     float _pressure;
 
     float _timestamp;
-    
+
 };
 
 
