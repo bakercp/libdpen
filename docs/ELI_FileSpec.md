@@ -40,7 +40,7 @@ Layer and stroke blocks are 3 bytes long and are indicated by a `0xF1` marker, a
 A new layer is indicated by block identification of `0x80`.
 
 |BYTE_0|BYTE_1|BYTE_2|
-|:-:|:-:|:-:|
+|:----:|:----:|:----:|
 |_Marker_|_Length_|_ID_|
 |`0xF1`|`0x03`|`0x80`|
 
@@ -52,7 +52,7 @@ A new layer is indicated by block identification of `0x80`.
 The beginning of a stroke (a pen down) is indicated by 3 byte sequence.
 
 |BYTE_0|BYTE_1|BYTE_2|
-|:-:|:-:|:-:|
+|:----:|:----:|:----:|
 |_Marker_|_Length_|_ID_|
 |`0xF1`|`0x03`|`0x01`|
 
@@ -61,7 +61,7 @@ The beginning of a stroke (a pen down) is indicated by 3 byte sequence.
 The end of the stroke (a pen lift) is indicated by a 3 byte sequence.
 
 |BYTE_0|BYTE_1|BYTE_2|
-|:-:|:-:|:-:|
+|:----:|:----:|:----:|
 |_Marker_|_Length_|_ID_|
 |`0xF1`|`0x03`|`0x00`|
 
@@ -85,7 +85,7 @@ Wacom Inkling `.WPI` files generally present pen data in clusters of three order
 X and Y values are encoded as a two byte `uint16_t` values.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
-|:-:|:-:|:-:|:-:|:-:|:-:|
+|:----:|:----:|:----:|:----:|:----:|:----:|
 |_Marker_|_Length_|_X HIGH_|_X LOW_|_Y HIGH_|_Y LOW_|
 |`0xF1`|`0x06`|`VARIES`|`VARIES`|`VARIES`|`VARIES`|
 
@@ -113,7 +113,7 @@ This scaling factor was empirically determined by comparing the raw `.WPI` file 
 Tilt X and Tilt Y values are encoded as a one byte `uint8_t` values.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|:----:|:----:|:----:|:----:|:----:|:----:|
 |_Marker_|_Length_|_X TILT_|_Y TILT_|_?_|_?_|
 |`0x65`|`0x06`|`VARIES`|`VARIES`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|
 
@@ -135,7 +135,7 @@ int8_t   yTilt = buffer[i+3];  // get tilt y value
 Pressure is encoded as a two byte `uint16_t` value.  Pressure values range between 0-1024 based on the specifications.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|:----:|:----:|:----:|:----:|:----:|:----:|
 |_Marker_|_Length_|_?_|_?_|_PRES. HIGH_|_PRES. LOW_|
 |`0x64`|`0x06`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`VARIES`|`VARIES`|
 
@@ -159,7 +159,7 @@ Timing blocks begin with a `0xC2` are `0x06` bytes long and are identified by a 
 Throughout each file, a time marker is recorded every second beginning with device power on.  They are identified by a block id of `0x11`.  The timing sequence is composed of 6 bytes.  The elapsed time is encoded in the last two bytes as an `uint16_t`.  BYTE_3 may also be used to encode time, but the last two bytes can represent 2<sup>8</sup> seconds (over 18 hours).  No test data of this duration has been generated.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|:----:|:----:|:----:|:----:|:----:|:----:|
 |_Marker_|_Length_|_ID_|_?_|_COUNTER HIGH_|_COUNTER LOW_|
 |`0xC2`|`0x06`|`0x11`|`0x00`[‡](#dc)|`VARIES`|`VARIES`|
 
@@ -178,7 +178,7 @@ uint16_t counter = (buffer[i+4] << 8) | (buffer[i+5]); // get counter value
 The clock "init" block happens early in all files examined -- usually before the first Clock block.  They are identified by a block id of `0x00`.  Usually this block ends with a `0x01`, but when multiples are present in longer files, the last byte can be a `0x02`.  Usually this byte alternates between `0x01` and `0x02` when multiples are present. It does not seem to affect or respond other timer values.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|:----:|:----:|:----:|:----:|:----:|:----:|
 |_Marker_|_Length_|_ID_|_?_|_?_|_Alternates b/t 0x01/0x02_|
 |`0xC2`|`0x06`|`0x00`|`0x00`[‡](#dc)|`0x00`[‡](#dc)|`0x01, 0x02`[‡](#dc)|
 
@@ -187,7 +187,7 @@ The clock "init" block happens early in all files examined -- usually before the
 The clock "unknown" block usually only happens once per file.  It is usually located near the beginning of the file.  They are identified by a block id of `0x12`.  The last two bytes often share values between files, but not consistently.  The range of values taken by the last two bytes are fairly limited, matching occasionally, but not in a clear pattern.  It is possible that the last two bytes should be read as a `int16_t` or `uint16_t`.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|:----:|:----:|:----:|:----:|:----:|:----:|
 |_Marker_|_Length_|_ID_|_?_|_?_|_?_|
 |`0xC2`|`0x06`|`0x12`|`0x00`[‡](#dc)|`VARIES`|`VARIES`|
 
