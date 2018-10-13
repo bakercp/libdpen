@@ -25,7 +25,7 @@ public:
     void setStartTimeMillis(unsigned long long startTimeMillis);
 
     void setContext(const std::string& context);
-    std::string getContext();
+    std::string getContext() const;
 
     bool isEmpty() const;
     void clear();

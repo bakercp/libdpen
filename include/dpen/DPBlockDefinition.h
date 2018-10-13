@@ -51,7 +51,7 @@ public:
                       unsigned char blockId,
                       bool blockIdMustMatch,
                       BlockCode blockCode,
-                      std::string name,
+                      const std::string& name,
                       bool debug):
         _blockStart(blockStart),
         _blockLength(blockLength),

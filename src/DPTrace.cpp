@@ -39,7 +39,7 @@ void DPTrace::setContext(const std::string& context)
 }
 
 
-std::string DPTrace::getContext()
+std::string DPTrace::getContext() const
 {
     return _context;
 }
