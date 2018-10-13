@@ -51,16 +51,16 @@ inline std::string DPErrorToString(const DPError& error)
 }
 
 inline void DPLogBlock(const std::string& prefix,
-                       std::vector<unsigned char>& buf,
-                       unsigned int i)
+                       std::vector<uint8_t>& buf,
+                       std::size_t i)
 {
     if(LOG_DEBUG)
     {
-        unsigned char length = buf[i+1];
+        uint8_t length = buf[i+1];
 
         std::cout << prefix << " ";
 
-        for (unsigned char j = 0; j < length; ++j)
+        for (uint8_t j = 0; j < length; ++j)
         {
             if (HEX_DEBUG)
             {
@@ -68,7 +68,7 @@ inline void DPLogBlock(const std::string& prefix,
             }
             else
             {
-                std::cout << DPToString( (unsigned int) buf[i+j], 0, 4, ' ');
+                std::cout << DPToString( (std::size_t) buf[i+j], 0, 4, ' ');
             }
         }
 

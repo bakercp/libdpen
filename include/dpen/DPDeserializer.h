@@ -72,12 +72,12 @@ protected:
     DPBlockDefinition::BlockCode lastBlockCode;
 
     std::size_t samplesSinceTimestamp;
-    unsigned long long lastTimestampMillis;
+    uint64_t lastTimestampMillis;
 
     //std::vector<DPTracePoint*> tracePointsSinceTimestamp;
 
-    std::vector<unsigned char> buf;
-    unsigned int i; // current position
+    std::vector<uint8_t> buf;
+    std::size_t i; // current position
 
 };
 

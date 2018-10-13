@@ -11,7 +11,7 @@
 namespace dpen {
 
 
-DPTrace::DPTrace(unsigned long long startTimeMillis): _startTimeMillis(startTimeMillis)
+DPTrace::DPTrace(uint64_t startTimeMillis): _startTimeMillis(startTimeMillis)
 {
 }
 
@@ -21,13 +21,13 @@ DPTrace::~DPTrace()
 }
 
 
-unsigned long long DPTrace::getStartTimeMillis() const
+uint64_t DPTrace::getStartTimeMillis() const
 {
     return _startTimeMillis;
 }
 
 
-void DPTrace::setStartTimeMillis(unsigned long long startTimeMillis)
+void DPTrace::setStartTimeMillis(uint64_t startTimeMillis)
 {
     _startTimeMillis = startTimeMillis;
 }

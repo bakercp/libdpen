@@ -25,18 +25,18 @@ public:
     {
     }
 
-    void setSamplingFrequency(unsigned long long samplingFrequency)
+    void setSamplingFrequency(uint64_t samplingFrequency)
     {
         _samplingFrequency = samplingFrequency;
     }
 
-    unsigned long long getSamplingFrequency(unsigned long long samplingFrequency)
+    uint64_t getSamplingFrequency(uint64_t samplingFrequency)
     {
         return _samplingFrequency;
     }
 
 private:
-    unsigned long long _samplingFrequency;
+    uint64_t _samplingFrequency;
 
 };
 

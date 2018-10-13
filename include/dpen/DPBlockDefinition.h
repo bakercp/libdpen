@@ -46,9 +46,9 @@ public:
     {
     }
 
-    DPBlockDefinition(unsigned char blockStart,
-                      unsigned char blockLength,
-                      unsigned char blockId,
+    DPBlockDefinition(uint8_t blockStart,
+                      uint8_t blockLength,
+                      uint8_t blockId,
                       bool blockIdMustMatch,
                       BlockCode blockCode,
                       const std::string& name,
@@ -63,17 +63,17 @@ public:
     {
     }
 
-    unsigned char getBlockStart() const
+    uint8_t getBlockStart() const
     {
         return _blockStart;
     }
 
-    unsigned char getBlockLength() const
+    uint8_t getBlockLength() const
     {
         return _blockLength;
     }
 
-    unsigned char getBlockId() const
+    uint8_t getBlockId() const
     {
         return _blockId;
     }
@@ -98,7 +98,7 @@ public:
         return _debug;
     }
 
-    unsigned int getCount() const
+    std::size_t getCount() const
     {
         return _count;
     }
@@ -114,9 +114,9 @@ public:
     }
 
 
-    static bool matchEventBlock(std::vector<unsigned char>& buf,
-                         std::size_t i,
-                         DPBlockDefinition::BlockCode& blockCode);
+    static bool matchEventBlock(std::vector<uint8_t>& buf,
+                                std::size_t i,
+                                DPBlockDefinition::BlockCode& blockCode);
 
     static bool getELIBlockDef(const DPBlockDefinition::BlockCode& code, DPBlockDefinition& def);
 
@@ -126,18 +126,18 @@ public:
     static bool dumpDebugCounts();
 
     // TODO: make this const and get rid of embedded debug counts
-    static std::map<DPBlockDefinition::BlockCode,DPBlockDefinition> blockEventMap;
+    static std::map<DPBlockDefinition::BlockCode, DPBlockDefinition> blockEventMap;
 
 
 protected:
-    unsigned char _blockStart;
-    unsigned char _blockLength;
-    unsigned char _blockId; // not always used
+    uint8_t _blockStart;
+    uint8_t _blockLength;
+    uint8_t _blockId; // not always used
     bool _blockIdMustMatch;
     BlockCode _blockCode;
     std::string _name;
     bool _debug;
-    unsigned int _count;
+    std::size_t _count;
 
 };
 

@@ -19,15 +19,16 @@
 namespace dpen {
 
 
-short readShort(std::vector<unsigned char>& buf, unsigned int& i);
-unsigned short readUShort(std::vector<unsigned char>& buf, unsigned int& i);
-unsigned char readUChar(std::vector<unsigned char>& buf, unsigned int& i);
-char readChar(std::vector<unsigned char>& buf, unsigned int& i);
+int16_t readShort(std::vector<uint8_t>& buf, std::size_t& i);
+uint16_t readUShort(std::vector<uint8_t>& buf, std::size_t& i);
+uint8_t readUChar(std::vector<uint8_t>& buf, std::size_t& i);
+int8_t readChar(std::vector<uint8_t>& buf, std::size_t& i);
 
-bool DPReadBinaryFile(const std::string& path, std::vector<unsigned char>& buffer);
+bool DPReadBinaryFile(const std::string& path, std::vector<uint8_t>& buffer);
 // number conversion
 
 std::string DPStringToString(const char* str);
+    
 template <class T>
 std::string DPToString(const T& value, int precision, int width, char fill )
 {
@@ -37,7 +38,7 @@ std::string DPToString(const T& value, int precision, int width, char fill )
 }
 
 float DPStringToFloat(const std::string& floatString);
-short int DPStringToShortInt(const std::string& shortString);
+int16_t DPStringToShortInt(const std::string& shortString);
 
 template <class T>
 std::string DPToHex(const T& value)
@@ -46,12 +47,13 @@ std::string DPToHex(const T& value)
 
     // pretend that the value is a bunch of bytes
 
-    unsigned char* valuePtr = (unsigned char*) &value;
+    uint8_t* valuePtr = (uint8_t*) &value;
+    
 	// the number of bytes is determined by the datatype
-	int numBytes = sizeof(T);
+    std::size_t numBytes = sizeof(T);
 
 	// the bytes are stored backwards (least significant first)
-	for(int i = numBytes - 1; i >= 0; i--)
+	for (int i = numBytes - 1; i >= 0; i--)
     {
 		// print each byte out as a 2-character wide hex value
 		out << std::setfill('0') << std::setw(2) << std::hex << (int) valuePtr[i];

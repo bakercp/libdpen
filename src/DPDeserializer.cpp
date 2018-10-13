@@ -60,7 +60,7 @@ DPError DPDeserializer::processHeader()
 
     //    bool loadFileHB(string file) {
     //        cout << file << endl;
-    //        vector<unsigned char> b;
+    //        vector<uint8_t> b;
     //        if(!readBinaryFile(file, b) && b.size() > 0) {
     //            return false;
     //        }
@@ -68,7 +68,7 @@ DPError DPDeserializer::processHeader()
     //                 short is =  (b[2044] << 8 ) | (b[2043]);
     //        unsigned short iu =  (b[2044] << 8 ) | (b[2043]);
     //
-    //        cout << ofToString((unsigned int) b[2043],0,4,' ') << "," << ofToString((unsigned int) b[2044],0,4,' ') << "  " << is << " / " << iu << endl;
+    //        cout << ofToString((std::size_t) b[2043],0,4,' ') << "," << ofToString((unsigned int) b[2044],0,4,' ') << "  " << is << " / " << iu << endl;
     //
     //
     //    }
@@ -215,7 +215,7 @@ bool DPDeserializer::processC5()
 {
 //    std::cout << "C5_UNKNNOWN" << std::endl;
     // we don't yet know what this is
-    unsigned char lengthOfPacket = buf[i+1];
+    uint8_t lengthOfPacket = buf[i+1];
     i += lengthOfPacket; // consume the second section
     return true;
 }
@@ -224,7 +224,7 @@ bool DPDeserializer::processC7()
 {
 //    std::cout << "C7_UNKNNOWN" << std::endl;
     // we don't yet know what this is
-    unsigned char lengthOfPacket = buf[i+1];
+    uint8_t lengthOfPacket = buf[i+1];
     i += lengthOfPacket; // consume the second section
     return true;
 }

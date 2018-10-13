@@ -65,7 +65,7 @@ bool DPBlockDefinition::resetDebugCounts()
     }
 }
 
-bool DPBlockDefinition::matchEventBlock(std::vector<unsigned char>& buf,
+bool DPBlockDefinition::matchEventBlock(std::vector<uint8_t>& buf,
                                         std::size_t i,
                                         DPBlockDefinition::BlockCode& blockCode)
 {

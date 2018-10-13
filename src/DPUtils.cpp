@@ -13,37 +13,37 @@
 namespace dpen {
 
 
-short readShort(std::vector<unsigned char>& buf, unsigned int& i)
+int16_t readShort(std::vector<uint8_t>& buf, std::size_t& i)
 {
-    short out = 0;
+    int16_t out = 0;
     out  = buf[i++] << 8;
     out |= buf[i++];
     return out;
 }
 
 
-unsigned short readUShort(std::vector<unsigned char>& buf, unsigned int& i)
+uint16_t readUShort(std::vector<uint8_t>& buf, std::size_t& i)
 {
-    unsigned short out = 0;
+    uint16_t out = 0;
     out  = buf[i++] << 8;
     out |= buf[i++];
     return out;
 }
 
 
-unsigned char readUChar(std::vector<unsigned char>& buf, unsigned int& i)
+uint8_t readUChar(std::vector<uint8_t>& buf, std::size_t& i)
 {
     return buf[i++];
 }
 
 
-char readChar(std::vector<unsigned char>& buf, unsigned int& i)
+int8_t readChar(std::vector<uint8_t>& buf, std::size_t& i)
 {
     return buf[i++];
 }
 
 
-bool DPReadBinaryFile(const std::string& path, std::vector<unsigned char>& buffer)
+bool DPReadBinaryFile(const std::string& path, std::vector<uint8_t>& buffer)
 {
     std::ifstream file(path.c_str(), std::ios::in | std::ios::binary | std::ios::ate);
 
@@ -87,9 +87,9 @@ float DPStringToFloat(const std::string& floatString)
     return x;
 }
 
-short int DPStringToShortInt(const std::string& shortString)
+int16_t DPStringToShortInt(const std::string& shortString)
 {
-    short int x = 0;
+    int16_t x = 0;
     std::istringstream cur(shortString);
     cur >> x;
     return x;
@@ -99,9 +99,9 @@ short int DPStringToShortInt(const std::string& shortString)
 //string DPToHex(const T& value) {
 //	ostringstream out;
 //	// pretend that the value is a bunch of bytes
-//	unsigned char* valuePtr = (unsigned char*) &value;
+//	uint8_t* valuePtr = (uint8_t*) &value;
 //	// the number of bytes is determined by the datatype
-//	int numBytes = sizeof(T);
+//	std::size_t numBytes = sizeof(T);
 //	// the bytes are stored backwards (least significant first)
 //	for(int i = numBytes - 1; i >= 0; i--) {
 //		// print each byte out as a 2-character wide hex value
@@ -117,20 +117,21 @@ inline std::string DPToHex(const std::string& value)
 {
 	std::ostringstream out;
 	// how many bytes are in the string
-    std::size_t numBytes = value.size();
-	for (std::size_t i = 0; i < numBytes; i++)
+
+    for (std::size_t i = 0; i < value.size(); i++)
     {
 		// print each byte as a 2-character wide hex value
-		out << std::setfill('0') << std::setw(2) << std::hex << (unsigned int) value[i];
+		out << std::setfill('0') << std::setw(2) << std::hex << (std::size_t) value[i];
 	}
+    
 	return out.str();
 }
 
 std::string DPToHex(const char* value)
 {
 	// this function is necessary if you want to print a string
-	// using a syntax like ofToHex("test")
-	return DPToHex((std::string) value);
+	// using a syntax like DPToHex("test")
+	return DPToHex((std::string)value);
 }
 
 

@@ -127,14 +127,14 @@ std::string DPChannel<T>::toString() const
 
 
 // some defs
-typedef DPChannel<char>             DPSCharChannel;
-typedef DPChannel<unsigned char>    DPUCharChannel;
-typedef DPChannel<short>            DPSShortChannel;
-typedef DPChannel<unsigned short>   DPUShortChannel;
-typedef DPChannel<int>              DPSIntChannel;
-typedef DPChannel<unsigned int>     DPUIntChannel;
-typedef DPChannel<float>            DPFloatChannel;
-typedef DPChannel<double>           DPDoubleChannel;
+typedef DPChannel<int8_t>   DPSCharChannel;
+typedef DPChannel<uint8_t>  DPUCharChannel;
+typedef DPChannel<int16_t>  DPSShortChannel;
+typedef DPChannel<uint16_t> DPUShortChannel;
+typedef DPChannel<int32_t>  DPSIntChannel;
+typedef DPChannel<uint32_t> DPUIntChannel;
+typedef DPChannel<float>    DPFloatChannel;
+typedef DPChannel<double>   DPDoubleChannel;
 
 
 } // namespace dpen

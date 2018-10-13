@@ -18,11 +18,11 @@ namespace dpen {
 class DPTrace
 {
 public:
-    DPTrace(unsigned long long startTimeMillis = 0);
+    DPTrace(uint64_t startTimeMillis = 0);
     virtual ~DPTrace();
 
-    unsigned long long getStartTimeMillis() const;
-    void setStartTimeMillis(unsigned long long startTimeMillis);
+    uint64_t getStartTimeMillis() const;
+    void setStartTimeMillis(uint64_t startTimeMillis);
 
     void setContext(const std::string& context);
     std::string getContext() const;
@@ -42,7 +42,7 @@ public:
 
 
 protected:
-    unsigned long long _startTimeMillis;
+    uint64_t _startTimeMillis;
 
     std::string _context;
     std::vector<DPTracePoint> _points;
