@@ -24,9 +24,11 @@ DPDeserializer::DPDeserializer():
 {
 }
 
+
 DPDeserializer::~DPDeserializer()
 {
 }
+
 
 DPError DPDeserializer::deserialize(const std::string& filename, DPSketch& _sketch)
 {
@@ -46,6 +48,7 @@ DPError DPDeserializer::deserialize(const std::string& filename, DPSketch& _sket
     }
 }
 
+    
 DPError DPDeserializer::processHeader()
 {
     // TODO.  get something out of here.
@@ -81,7 +84,7 @@ bool DPDeserializer::processClockCounter()
 //    std::cout << "CLOCK_COUNTER" << std::endl;
     i+=4;
 
-    lastTimestampMillis = readUShort(buf,i) * 1000; // get milliseconds
+    lastTimestampMillis = readUShort(buf, i) * 1000; // get milliseconds
 
 //    std::cout << "processClockCounter " << numSeconds << std::endl;
 
@@ -359,7 +362,7 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
             }
             else
             {
-                if(lastBlockCode != DPBlockDefinition::DP_BLOCK_UNKNOWN)
+                if (lastBlockCode != DPBlockDefinition::DP_BLOCK_UNKNOWN)
                 {
                     DPLogDebug("Unknown BLOCK CODE: " + DPToHex(thisBlockCode));
                     lastBlockCode = DPBlockDefinition::DP_BLOCK_UNKNOWN;
@@ -371,22 +374,22 @@ DPError DPDeserializer::deserializeELICompatible(const std::string& filename)
             DPLogError("Error matching event block. Failing.");
         }
 
-        std::cout << DPToString( (unsigned int) buf[i], 0, 4, ' ');
+        // std::cout << DPToString( (std::size_t) buf[i], 0, 4, ' ');
 
         ++i; // working our way through ...
     }
 
-    if(currentPoint.isPositionSet())
+    if (currentPoint.isPositionSet())
     {
         currentTrace.push_back(currentPoint);
     }
 
-    if(!currentTrace.isEmpty())
+    if (!currentTrace.isEmpty())
     {
         currentLayer.push_back(currentTrace);
     }
 
-    if(!currentLayer.isEmpty())
+    if (!currentLayer.isEmpty())
     {
         sketch.push_back(currentLayer);
     }

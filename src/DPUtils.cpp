@@ -56,10 +56,8 @@ bool DPReadBinaryFile(const std::string& path, std::vector<uint8_t>& buffer)
         file.close(); // close the file
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 // number conversion
@@ -79,6 +77,7 @@ std::string DPStringToString(const char* str)
 //	return out.str();
 //}
 
+    
 float DPStringToFloat(const std::string& floatString)
 {
     float x = 0;
@@ -161,7 +160,7 @@ std::string& DPRTrim(std::string &s)
 }
 
 
-std::string& DPTrim(std::string &s)
+std::string& DPTrim(std::string& s)
 {
     return DPLTrim(DPRTrim(s));
 }
@@ -191,7 +190,7 @@ std::vector<std::string> DPSplit(const std::string &s,
 }
 
 
-bool DPStringEndsWith(std::string const &fullString, std::string const &ending)
+bool DPStringEndsWith(const std::string& fullString, const std::string& ending)
 {
     if (fullString.length() >= ending.length())
     {
@@ -200,15 +199,12 @@ bool DPStringEndsWith(std::string const &fullString, std::string const &ending)
         std::string end = ending;
         std::transform(full.begin(), full.end(), full.begin(), ::tolower);
         std::transform(end.begin(), end.end(), end.begin(), ::tolower);
-
         return (0 == full.compare(full.length() - end.length(),
                                   end.length(),
                                   end));
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 

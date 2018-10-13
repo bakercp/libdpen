@@ -69,25 +69,25 @@ std::string DPToHex(const char* value);
 bool DPIsMatch(const char* name0, const char* name1);
 
 // trim from start
-std::string& DPLTrim(std::string &s);
+std::string& DPLTrim(std::string& s);
 
 // trim from end
-std::string& DPRTrim(std::string &s);
+std::string& DPRTrim(std::string& s);
 
 // trim from both ends
-std::string& DPTrim(std::string &s);
+std::string& DPTrim(std::string& s);
 
 std::vector<std::string>& DPSplit(const std::string& s,
                                   char delim,
                                   std::vector<std::string>& elems,
                                   bool trimIt = true);
 
-std::vector<std::string> DPSplit(const std::string &s,
+std::vector<std::string> DPSplit(const std::string& s,
                                  char delim,
                                  bool trim = true);
 
-bool DPStringEndsWith(std::string const &fullString,
-                      std::string const &ending);
+bool DPStringEndsWith(const std::string& fullString,
+                      const std::string& ending);
 
 
 } // namespace dpen

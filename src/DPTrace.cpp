@@ -68,6 +68,18 @@ std::vector<DPTracePoint>& DPTrace::getPointsRef()
     return _points;
 }
 
+    
+std::vector<DPTracePoint>& DPTrace::getPoints()
+{
+    return _points;
+}
+
+    
+const std::vector<DPTracePoint>& DPTrace::getPoints() const
+{
+    return _points;
+}
+
 
 std::size_t DPTrace::getNumPoints() const
 {

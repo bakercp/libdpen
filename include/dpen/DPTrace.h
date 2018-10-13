@@ -33,6 +33,8 @@ public:
     void push_back(const DPTracePoint& pnt);
 
     std::vector<DPTracePoint>& getPointsRef();
+    std::vector<DPTracePoint>& getPoints();
+    const std::vector<DPTracePoint>& getPoints() const;
 
     std::size_t getNumPoints() const;
 
