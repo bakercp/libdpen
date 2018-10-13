@@ -85,7 +85,7 @@ Wacom Inkling `.WPI` files generally present pen data in clusters of three order
 X and Y values are encoded as a two byte `uint16_t` values.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|:-:|:-:|
 |_Marker_|_Length_|_X HIGH_|_X LOW_|_Y HIGH_|_Y LOW_|
 |`0xF1`|`0x06`|`VARIES`|`VARIES`|`VARIES`|`VARIES`|
 
@@ -93,12 +93,12 @@ X and Y values are encoded as a two byte `uint16_t` values.
 
 ```c++
 uint8_t  buffer[] = { 0x61, 0x06, 0x03, 0x4F, 0x13, 0x61 };
-uint32_t   i = 0;
+uint32_t i = 0;
 uint16_t xPos = (buffer[i+2] << 8) | (buffer[i+3]); // get x value
 uint16_t yPos = (buffer[i+4] << 8) | (buffer[i+5]); // get y value
 ```
 
-###Notes
+### Notes
 > The Inkling Sketch Manager software scales the resulting raw `x` and `y` values by `x / 10.0f` and `y / 5.0f` when creating the `.WAC` InkML output files. e.g.
 
 ```c++
