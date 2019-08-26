@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -25,8 +25,12 @@ public:
     virtual ~DPSketch();
 
     DPDefinitions& getDefinitionsRef();
+    DPDefinitions& getDefinitions();
+    const DPDefinitions& getDefinitions() const;
     void setDefinitions(const DPDefinitions& definitions);
     std::vector<DPTraceGroup>& getLayersRef();
+    std::vector<DPTraceGroup>& getLayers();
+    const std::vector<DPTraceGroup>& getLayers() const;
     void push_back(const DPTraceGroup& traceGroup);
     void setLayers(const std::vector<DPTraceGroup>& layers);
     std::size_t getNumLayers() const;

@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -91,7 +91,7 @@ inline void DPLogWarning(const std::string& warning)
 
 inline void DPLogDebug(const std::string& verbose)
 {
-    if(LOG_DEBUG)
+    if (LOG_DEBUG)
     {
         std::cout << "Debug: " << verbose << std::endl;
     }

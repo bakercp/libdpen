@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -39,14 +39,16 @@ public:
                 return DP_ERROR_INVALID_XML;
             }
 
-            for (TiXmlElement* elem = root->FirstChildElement(); elem != 0; elem = elem->NextSiblingElement())
+            for (TiXmlElement* elem = root->FirstChildElement();
+                 elem != 0;
+                 elem = elem->NextSiblingElement())
             {
                 if (!isValidNode(elem))
                 {
                     DPLogWarning("invalid node found");
                     continue;
                 }
-                else if(DPIsMatch(elem->Value(),"definitions"))
+                else if(DPIsMatch(elem->Value(), "definitions"))
                 {
                     DPDefinitions defs;
                     DPError err = parseXMLDefinitions(elem, defs);
@@ -93,7 +95,7 @@ public:
                 DPLogWarning("invalid node found");
                 continue;
             }
-            else if (DPIsMatch(elem->Value(),"channel"))
+            else if (DPIsMatch(elem->Value(), "channel"))
             {
                 DPFloatChannel channel;
                 channel.setName(getStringAttr(elem, "name"));

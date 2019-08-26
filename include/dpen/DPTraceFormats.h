@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -19,7 +19,6 @@ namespace dpen {
 class DPTraceFormats
 {
 public:
-
     DPTraceFormats(): _id("")
     {
     }
@@ -47,6 +46,16 @@ public:
         return _channels;
     }
 
+    std::vector<DPFloatChannel>& getChannels()
+    {
+        return _channels;
+    }
+
+    const std::vector<DPFloatChannel>& getChannels() const
+    {
+        return _channels;
+    }
+
     void addChannel(DPFloatChannel channel)
     {
         if(!hasChannelNamed(channel.getName()))
@@ -68,7 +77,7 @@ public:
     {
         for(std::size_t i = 0; i < _channels.size(); ++i)
         {
-            if(DPIsMatch(_channels[i].getName().c_str(), name.c_str()))
+            if (DPIsMatch(_channels[i].getName().c_str(), name.c_str()))
             {
                 return true;
             }
@@ -78,9 +87,9 @@ public:
 
     DPFloatChannel* getChannelNamed(const std::string& name)
     {
-        for(std::size_t i = 0; i < _channels.size(); ++i)
+        for (std::size_t i = 0; i < _channels.size(); ++i)
         {
-            if(DPIsMatch(_channels[i].getName().c_str(), name.c_str()))
+            if (DPIsMatch(_channels[i].getName().c_str(), name.c_str()))
             {
                 return &_channels[i];
             }
@@ -93,7 +102,7 @@ public:
     {
         std::stringstream ss;
         ss << "[TraceFormats id=" << _id << std::endl;
-        for(std::size_t i = 0; i < _channels.size(); ++i)
+        for (std::size_t i = 0; i < _channels.size(); ++i)
         {
             ss << "\t\t\t" << _channels[i].toString() << std::endl;;
         }

@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -77,7 +77,7 @@ std::string DPStringToString(const char* str)
 //	return out.str();
 //}
 
-    
+
 float DPStringToFloat(const std::string& floatString)
 {
     float x = 0;
@@ -122,7 +122,7 @@ inline std::string DPToHex(const std::string& value)
 		// print each byte as a 2-character wide hex value
 		out << std::setfill('0') << std::setw(2) << std::hex << (std::size_t) value[i];
 	}
-    
+
 	return out.str();
 }
 
@@ -173,7 +173,7 @@ std::vector<std::string>& DPSplit(const std::string& s,
 {
     std::stringstream ss(s);
     std::string item;
-    while(std::getline(ss, item, delim))
+    while (std::getline(ss, item, delim))
     {
         elems.push_back(trimIt ? DPTrim(item) : item);
     }

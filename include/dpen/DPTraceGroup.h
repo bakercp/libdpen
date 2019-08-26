@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -24,6 +24,8 @@ public:
 
     void setTraces(std::vector<DPTrace>& traces);
     std::vector<DPTrace>& getTracesRef();
+    std::vector<DPTrace>& getTraces();
+    const std::vector<DPTrace>& getTraces() const;
     void push_back(const DPTrace& trace);
     bool isEmpty() const;
     void clear();

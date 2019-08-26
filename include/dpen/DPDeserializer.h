@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -71,13 +71,24 @@ protected:
     DPBlockDefinition::BlockCode thisBlockCode;
     DPBlockDefinition::BlockCode lastBlockCode;
 
-    std::size_t samplesSinceTimestamp;
     uint64_t lastTimestampMillis;
 
     //std::vector<DPTracePoint*> tracePointsSinceTimestamp;
 
     std::vector<uint8_t> buf;
     std::size_t i; // current position
+
+    std::int8_t minX;
+    std::int8_t maxX;
+
+    std::int8_t minY;
+    std::int8_t maxY;
+
+    std::uint16_t minPressure;
+    std::uint16_t maxPressure;
+
+    std::int8_t minTilt;
+    std::int8_t maxTilt;
 
 };
 

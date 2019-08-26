@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -28,6 +28,18 @@ void DPTraceGroup::setTraces(std::vector<DPTrace>& traces)
 
 
 std::vector<DPTrace>& DPTraceGroup::getTracesRef()
+{
+    return _traces;
+}
+
+
+std::vector<DPTrace>& DPTraceGroup::getTraces()
+{
+    return _traces;
+}
+
+
+const std::vector<DPTrace>& DPTraceGroup::getTraces() const
 {
     return _traces;
 }
@@ -60,11 +72,9 @@ std::size_t DPTraceGroup::getNumTraces() const
 std::size_t DPTraceGroup::getNumPoints() const
 {
     std::size_t numPoints = 0;
+    for (const auto& trace: _traces)
+        numPoints += trace.getNumPoints();
 
-    for (std::size_t i = 0; i < getNumTraces(); ++i)
-    {
-        numPoints += _traces[i].getNumPoints();
-    }
     return numPoints;
 }
 
@@ -73,10 +83,9 @@ std::string DPTraceGroup::toString() const
 {
     std::stringstream ss;
 
-    for (std::size_t i = 0 ; i < _traces.size(); ++i)
-    {
-        ss << _traces[i].toString() << std::endl;
-    }
+    for (const auto& trace: _traces)
+        ss << trace.toString() << std::endl;
+
     return ss.str();
 }
 

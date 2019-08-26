@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -30,12 +30,13 @@ public:
         _samplingFrequency = samplingFrequency;
     }
 
-    uint64_t getSamplingFrequency(uint64_t samplingFrequency)
+    uint64_t getSamplingFrequency(uint64_t samplingFrequency) const
     {
         return _samplingFrequency;
     }
 
 private:
+    /// \brief The sampling frequency of the file.
     uint64_t _samplingFrequency;
 
 };

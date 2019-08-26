@@ -7,7 +7,7 @@ _Christopher Baker <https://christopherbaker.net>_
 
 # Equipment
 ## Wacom Inkling
-The Wacom Inkling's official specifications can be found [here](http://www.wacom.com/en/Products/Inkling/Inkling-Technical-Specifics.aspx).  It appears that the sampling rate for the Inkling is 200 samples / second.  It provides 1024 levels of pressure.
+The Wacom Inkling's official specifications can be found [here](https://web.archive.org/web/20121013141410/http://www.wacom.com/en/Products/Inkling/Inkling-Technical-Specifics.aspx).  It appears that the sampling rate for the Inkling is 200 samples / second.  It provides 1024 levels of pressure.
 
 ## Others
 …
@@ -31,7 +31,7 @@ The standard header length is **2059** bytes.  There are some variations between
 |2043-2044|…|differ across devices ?|
 |2045-2059|…|Are again the same.|
 
-#Layer and Stroke Blocks
+# Layer and Stroke Blocks
 
 Layer and stroke blocks are 3 bytes long and are indicated by a `0xF1` marker, and a block identification byte differentiating the specific event types.
 
@@ -156,7 +156,7 @@ Timing blocks begin with a `0xC2` are `0x06` bytes long and are identified by a 
 
 ## Clock
 
-Throughout each file, a time marker is recorded every second beginning with device power on.  They are identified by a block id of `0x11`.  The timing sequence is composed of 6 bytes.  The elapsed time is encoded in the last two bytes as an `uint16_t`.  BYTE_3 may also be used to encode time, but the last two bytes can represent 2<sup>8</sup> seconds (over 18 hours).  No test data of this duration has been generated.
+Throughout each file, a time marker is recorded every second beginning with device power on. They are identified by a block id of `0x11`.  The timing sequence is composed of 6 bytes. The elapsed time is encoded in the last two bytes as an `uint16_t`. BYTE_3 may also be used to encode time, but the last two bytes can represent 2<sup>8</sup> seconds (over 18 hours). No test data of this duration has been generated.
 
 |BYTE_0|BYTE_1|BYTE_2|BYTE_3|BYTE_4|BYTE_5|
 |:----:|:----:|:----:|:----:|:----:|:----:|

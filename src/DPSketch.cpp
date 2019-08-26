@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -27,6 +27,18 @@ DPDefinitions& DPSketch::getDefinitionsRef()
 }
 
 
+DPDefinitions& DPSketch::getDefinitions()
+{
+    return _definitions;
+}
+
+
+const DPDefinitions& DPSketch::getDefinitions() const
+{
+    return _definitions;
+}
+
+
 void DPSketch::setDefinitions(const DPDefinitions& definitions)
 {
     _definitions = definitions;
@@ -34,6 +46,18 @@ void DPSketch::setDefinitions(const DPDefinitions& definitions)
 
 
 std::vector<DPTraceGroup>& DPSketch::getLayersRef()
+{
+    return _layers;
+}
+
+
+std::vector<DPTraceGroup>& DPSketch::getLayers()
+{
+    return _layers;
+}
+
+
+const std::vector<DPTraceGroup>& DPSketch::getLayers() const
 {
     return _layers;
 }
@@ -66,10 +90,8 @@ std::size_t DPSketch::getNumLayers() const
 std::size_t DPSketch::getNumTraces() const
 {
     std::size_t numTraces = 0;
-    for(std::size_t i = 0; i < _layers.size(); ++i)
-    {
-        numTraces += _layers[i].getNumTraces();
-    }
+    for (const auto& l: _layers)
+        numTraces += l.getNumTraces();
     return numTraces;
 }
 
@@ -77,10 +99,8 @@ std::size_t DPSketch::getNumTraces() const
 std::size_t DPSketch::getNumPoints() const
 {
     std::size_t numPoints = 0;
-    for(std::size_t i = 0; i < getNumLayers(); ++i)
-    {
-        numPoints += _layers[i].getNumPoints();
-    }
+    for (const auto& l: _layers)
+        numPoints += l.getNumPoints();
     return numPoints;
 }
 
@@ -148,10 +168,8 @@ bool DPSketch::hasTimestamp() const
 
 void DPSketch::addPositionChannel()
 {
-    if(hasPosition())
-    {
+    if (hasPosition())
         return;
-    }
 
     DPFloatChannel xChan;
     xChan.setName("x");
@@ -172,10 +190,8 @@ void DPSketch::addPositionChannel()
 
 void DPSketch::addTiltChannel()
 {
-    if(hasTilt())
-    {
+    if (hasTilt())
         return;
-    }
 
     DPFloatChannel xChan;
     xChan.setName("xtilt");
@@ -195,7 +211,7 @@ void DPSketch::addTiltChannel()
 
 bool DPSketch::addPressureChannel()
 {
-    if(hasPressure())
+    if (hasPressure())
     {
         return true;
     }
@@ -207,13 +223,13 @@ bool DPSketch::addPressureChannel()
     pressureChan.setMax(1024);
     _definitions.getTraceFormatsRef().addChannel(pressureChan);
 
-  return true;
+    return true;
 }
 
 
 void DPSketch::addTimestampChannel()
 {
-    if(hasTimestamp())
+    if (hasTimestamp())
     {
         return;
     }

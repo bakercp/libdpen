@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -68,13 +68,13 @@ std::vector<DPTracePoint>& DPTrace::getPointsRef()
     return _points;
 }
 
-    
+
 std::vector<DPTracePoint>& DPTrace::getPoints()
 {
     return _points;
 }
 
-    
+
 const std::vector<DPTracePoint>& DPTrace::getPoints() const
 {
     return _points;

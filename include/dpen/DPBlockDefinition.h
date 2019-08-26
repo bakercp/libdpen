@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -22,9 +22,9 @@ namespace dpen {
 class DPBlockDefinition
 {
 public:
-    enum BlockCode
+    enum class BlockCode
     {
-        DP_BLOCK_LAYER_START = 0,
+        DP_BLOCK_LAYER_START,
         DP_BLOCK_TRACE_START,
         DP_BLOCK_TRACE_END,
         DP_BLOCK_PEN_POSITION,
@@ -39,8 +39,50 @@ public:
         DP_BLOCK_C7_1A, // unknown
         DP_BLOCK_C7_16, // unknown
         DP_BLOCK_C7_22, // unknown
-        DP_BLOCK_UNKNOWN, // unknown
+        DP_BLOCK_UNKNOWN // unknown
     };
+
+    static std::string toString(const BlockCode& code)
+    {
+        switch (code)
+        {
+            case BlockCode::DP_BLOCK_LAYER_START:
+                return "DP_BLOCK_LAYER_START";
+            case BlockCode::DP_BLOCK_TRACE_START:
+                return "DP_BLOCK_TRACE_START";
+            case BlockCode::DP_BLOCK_TRACE_END:
+                return "DP_BLOCK_TRACE_END";
+            case BlockCode::DP_BLOCK_PEN_POSITION:
+                return "DP_BLOCK_PEN_POSITION";
+            case BlockCode::DP_BLOCK_PEN_TILT:
+                return "DP_BLOCK_PEN_TILT";
+            case BlockCode::DP_BLOCK_PEN_PRESSURE:
+                return "DP_BLOCK_PEN_PRESSURE";
+            case BlockCode::DP_BLOCK_CLOCK_COUNTER:
+                return "DP_BLOCK_CLOCK_COUNTER";
+            case BlockCode::DP_BLOCK_CLOCK_UNKNOWN:
+                return "DP_BLOCK_CLOCK_UNKNOWN";
+            case BlockCode::DP_BLOCK_CLOCK_INIT:
+                return "DP_BLOCK_CLOCK_INIT";
+            case BlockCode::DP_BLOCK_C5: // unknown
+                return "DP_BLOCK_C5";
+            case BlockCode::DP_BLOCK_C7_INTERFERENCE: // partially known
+                return "DP_BLOCK_C7_INTERFERENCE";
+            case BlockCode::DP_BLOCK_C7_1E: // unknown
+                return "DP_BLOCK_C7_1E";
+            case BlockCode::DP_BLOCK_C7_1A: // unknown
+                return "DP_BLOCK_C7_1A";
+            case BlockCode::DP_BLOCK_C7_16: // unknown
+                return "DP_BLOCK_C7_16";
+            case BlockCode::DP_BLOCK_C7_22: // unknown
+                return "DP_BLOCK_C7_22";
+            case BlockCode::DP_BLOCK_UNKNOWN: // unknown
+                return "DP_BLOCK_UNKNOWN";
+        }
+
+        return "ERROR: UNKNOWN BLOCK";
+    }
+
 
     DPBlockDefinition()
     {
@@ -113,6 +155,21 @@ public:
         _count = 0;
     }
 
+    void resetCountSinceTimestamp()
+    {
+        _countSinceTimestamp = 0;
+    }
+
+    void incrementCountSinceTimestamp()
+    {
+        _countSinceTimestamp++;
+    }
+
+    std::size_t getCountSinceTimestamp() const
+    {
+        return _countSinceTimestamp;
+    }
+
 
     static bool matchEventBlock(std::vector<uint8_t>& buf,
                                 std::size_t i,
@@ -130,14 +187,16 @@ public:
 
 
 protected:
-    uint8_t _blockStart;
-    uint8_t _blockLength;
-    uint8_t _blockId; // not always used
-    bool _blockIdMustMatch;
-    BlockCode _blockCode;
+    uint8_t _blockStart = 0;
+    uint8_t _blockLength = 0;
+    uint8_t _blockId = 0; // not always used
+    bool _blockIdMustMatch = false;
+    BlockCode _blockCode = DPBlockDefinition::BlockCode::DP_BLOCK_UNKNOWN;
     std::string _name;
-    bool _debug;
-    std::size_t _count;
+    bool _debug = false;
+    std::size_t _count = 0;
+
+    std::size_t _countSinceTimestamp = 0;
 
 };
 

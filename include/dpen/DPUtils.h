@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2012 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:    MIT
+// SPDX-License-Identifier: MIT
 //
 
 
@@ -28,7 +28,7 @@ bool DPReadBinaryFile(const std::string& path, std::vector<uint8_t>& buffer);
 // number conversion
 
 std::string DPStringToString(const char* str);
-    
+
 template <class T>
 std::string DPToString(const T& value, int precision, int width, char fill )
 {
@@ -48,7 +48,7 @@ std::string DPToHex(const T& value)
     // pretend that the value is a bunch of bytes
 
     uint8_t* valuePtr = (uint8_t*) &value;
-    
+
 	// the number of bytes is determined by the datatype
     std::size_t numBytes = sizeof(T);
 
